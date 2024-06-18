@@ -12,7 +12,7 @@
 
 SFILES = ft_printf.c
 
-BONUS = 
+#BONUS = 
   
 OFILES = $(SFILES:.c=.o)
 
@@ -20,7 +20,7 @@ OFILESALL = $(SFILES:.c=.o) $(BONUS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -I .
 
-NAME = libftprint.a
+NAME = libftprintf.a
 
 all: $(NAME)
 

@@ -16,6 +16,6 @@
 # include "../libft/libft.h"
 # include <stdarg.h>
 
-//Part 1
+//Mandatory
 int		ft_isdigit(int c);
 #endif

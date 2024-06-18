@@ -1,68 +1,96 @@
 # include "libftprintf.h"
+# include "../libft/libft.h"
 
-int ft_param_handle(unsigned char flag)
+static char *ft_map_str(char *str, int(*f)(int))
+{
+    char    *str_head;
+
+    str_head = str;
+    while (*str)
+    {
+        *str = f(*str);
+        str++;
+    }
+    return (str_head);
+}
+
+static char *ft_pcdr_handle(unsigned char pcdr, char *str, va_list args)
 {
     char    *paramset;
-    size_t  paramlen;
+    char    *converted_content;
+    size_t  offset;
 
     paramset = "cspdiuxX%";
-    switch (flag)
+    switch (pcdr)
     {
     case 'c':
-        /* code */
+        converted_content = va_arg(args, char*);
+        offset = 1;
         break;
 
     case 's':
-        /* code */
+        converted_content = va_arg(args, char*);
+        offset = 1;
         break;
 
     case 'p':
-        /* code */
+        converted_content = ft_itoa_base(va_arg(args, int), "0123456789abcdef");
+        offset = 1;
         break;
 
     case 'd':
-        /* code */
+        converted_content = ft_itoa(va_arg(args, int));
+        offset = 1;
         break;
 
     case 'i':
-        /* code */
+        converted_content = ft_itoa(va_arg(args, int));
+        offset = 1;
         break;
 
     case 'u':
-        /* code */
+        converted_content = ft_itoa(va_arg(args, unsigned int));
+        offset = 1;
         break;
 
     case 'x':
-        /* code */
+        converted_content = ft_map_str(ft_itoa_base(va_arg(args, int), "0123456789abcdef"), ft_tolower);
+        offset = 1;
         break;
 
     case 'X':
-        /* code */
+        converted_content = ft_map_str(ft_itoa_base(va_arg(args, int), "0123456789abcdef"), ft_toupper);
+        offset = 1;
         break;
 
     case '%':
-        /* code */
+        converted_content = ft_strdup("%");
+        offset = 1;
         break;
    
     default:
-        paramlen = 0;
-        break;
+        converted_content = "\0";
+        offset = 0;
+        return (NULL);
     }
-    return (paramlen);
+    return (ft_strjoin(converted_content, str += offset));
 }
 
 int  ft_printf(const char *str, ...)
 {
     va_list args;
-    size_t  output_size;
+    //size_t  output_size;
     int     flag;
     char    *strtoprint;
     char    *tmpstr;
     char    **chains;
 
     va_start(args, str);
-    if (!args)
-        ft_putstr_fd(str, 1);
+    if (!va_arg(args, long))
+    {
+        ft_putstr_fd((char *)str, 1);
+        return (ft_strlen((char *)str));
+    }
     else
         chains = ft_split(str, '%');
 
@@ -75,12 +103,12 @@ int  ft_printf(const char *str, ...)
         }
         else
         {
-            output_size = ft_param_handle(**chains);
-            //call flag function based on first letter if flag > 0
             tmpstr = strtoprint;
-            strtoprint = ft_join(tmpstr[1], *chains);
+            strtoprint = ft_strjoin(strtoprint, ft_pcdr_handle(**chains, *chains, args));
             free(tmpstr);
+            tmpstr = NULL;
         }
+        va_end(args);
         chains++;
     }
     return (ft_strlen(strtoprint));
