@@ -37,67 +37,76 @@ static char	*ft_map_str(char *str, int (*f)(int))
 	return (offset);
 }*/
 
-static char	*ft_pcdr_handle(unsigned char pcdr, char *str, va_list args)
+static int	ft_pcdr_handle(char *pcdr, void *arg, size_t *strlen)
 {
 	char	*paramset;
-	char	*converted_content;
+	int		pcdr_code;
 	size_t	offset;
 
 	paramset = "cspdiuxX%";
-	switch (pcdr)
+	pcdr_code = 0;
+	offset = 0;
+	while (*pcdr != ' ' && *pcdr != '\0')
+	{
+		if (pcdr_code > 99)
+			pcdr_code = pcdr_code * 100 + *pcdr;
+		else if (*pcdr > 9)
+			pcdr_code = pcdr_code * 10 + *pcdr;
+		else
+			pcdr_code = *pcdr;
+		pcdr++;
+		offset++;
+	}
+
+	switch (pcdr_code)
 	{
 		case 'c' :
-			converted_content = va_arg(args, char *);
-			offset = 1;
+			ft_putchar_fd((char)arg, 1);
+			strlen += 1;
 		break ;
 		case 's' :
-			converted_content = va_arg(args, char *);
-			offset = 1;
+			ft_putstr_fd((char *)arg, 1);
+			strlen += ft_strlen((char *)arg);
 		break ;
 		case 'p' :
-			converted_content = ft_itoa_base(va_arg(args, int), "0123456789abcdef");
-			offset = 1;
+			ft_putstr_fd(ft_itoa_base((int)arg, "0123456789abcdef"), 1);
+			strlen += ft_nbrlen((long int)arg);
 		break ;
 		case 'd' :
-			converted_content = ft_itoa(va_arg(args, int));
-			offset = 1;
+			ft_putstr_fd(ft_itoa((int)arg), 1);
+			strlen += ft_nbrlen((long int)arg);
 		break ;
 		case 'i' :
-			converted_content = ft_itoa(va_arg(args, int));
-			offset = 1;
+			ft_putstr_fd(ft_itoa((int)arg), 1);
+			strlen += ft_nbrlen((long int)arg);
 		break ;
 		case 'u' :
-			converted_content = ft_itoa(va_arg(args, unsigned int));
-			offset = 1;
+			ft_putstr_fd(ft_itoa((unsigned int)arg), 1);
+			strlen += ft_nbrlen((long int)arg);
 		break ;
 		case 'x' :
-			converted_content = ft_map_str(ft_itoa_base(va_arg(args, int), "0123456789abcdef"), ft_tolower);
-			offset = 1;
+			ft_putstr_fd(ft_map_str(ft_itoa_base((int)arg, "0123456789abcdef"), ft_tolower), 1);
+			strlen += ft_nbrlen((long int)arg);
 		break ;
 		case 'X' :
-			converted_content = ft_map_str(ft_itoa_base(va_arg(args, int), "0123456789abcdef"), ft_toupper);
-			offset = 1;
+			ft_putstr_fd(ft_map_str(ft_itoa_base((int)arg, "0123456789abcdef"), ft_toupper), 1);
+			strlen += ft_nbrlen((long int)arg);
 		break ;
 		case '%' :
-			converted_content = ft_strdup("%");
-			offset = 1;
+			ft_putchar_fd('%', 1);
+			strlen += 1;
 		break ;
 		default :
-			converted_content = "\0";
-			offset = 0;
-		return (NULL);
+			strlen += 0;
+		return (0);
 	}
-	return (ft_strjoin(converted_content, str += offset));
+	return (offset);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
-	int		flag;
 	size_t	strlen;
-	char	*strtoprint;
-	char	*prevstr;
-	char	**chains;
 
 	va_start(args, str);
 	if (!va_arg(args, long))
@@ -105,30 +114,19 @@ int	ft_printf(const char *str, ...)
 		ft_putstr_fd((char *)str, 1);
 		return (ft_strlen((char *)str));
 	}
-	else
-		chains = ft_split(str, '%');
-	flag = 0;
-	while (chains)
+	strlen = 0;
+	while (*str)
 	{
-		if (!flag)
+		if (*str == '%')
 		{
-			strtoprint = *chains;
-			flag = 1;
+			str++;
+			str += ft_pcdr_handle((char *)str, va_arg(args, void*), &strlen);
+			continue;
 		}
-		else
-		{
-			prevstr = strtoprint;
-			strtoprint = ft_strjoin(prevstr, ft_pcdr_handle(**chains, *chains, args));
-			free(prevstr);
-			prevstr = NULL;
-			if (!strtoprint)
-				return (0);
-		}
-		chains++;
+		ft_putchar_fd(*str, 1);
+		str++;
+		strlen++;
 	}
 	va_end(args);
-	ft_putstr_fd(strtoprint, 1);
-	strlen = ft_strlen(strtoprint);
-	free(strtoprint);
 	return (strlen);
 }

@@ -22,7 +22,7 @@ OBJ_DIR = .obj
 
 LIBFTPTH = $(LIBFTDIR)/$(LIBFT_NAME)
 
-LIBOBJ = ft_strlen.o ft_toupper.o ft_tolower.o ft_strchr.o ft_atoi.o ft_strdup.o ft_substr.o ft_strjoin.o ft_split.o ft_itoa.o ft_atoi_base.o ft_itoa_base.o ft_putstr_fd.o ft_putchar_fd.o
+LIBOBJ = ft_strlen.o ft_nbrlen.o ft_tolower.o ft_toupper.o ft_atoi.o ft_strdup.o ft_substr.o ft_strjoin.o ft_split.o ft_itoa.o ft_atoi_base.o ft_itoa_base.o ft_putstr_fd.o ft_putchar_fd.o
 
 LIBOBJPTH = $(addprefix $(LIBFTDIR)/$(OBJ_DIR)/, $(LIBOBJ))
   
@@ -30,7 +30,7 @@ OBJ = $(CFILES:.c=.o)
 
 OBJALL = $(CFILES:.c=.o) $(BONUS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -I.
+CFLAGS = -Wall -Wextra -Werror -I. -ggdb3
 
 #LDFLAGS = -L../libft
 
