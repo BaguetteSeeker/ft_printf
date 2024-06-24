@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 19:06:08 by epinaud           #+#    #+#             */
-/*   Updated: 2024/06/18 16:43:01 by epinaud          ###   ########.fr       */
+/*   Created: 2024/05/26 21:41:57 by epinaud           #+#    #+#             */
+/*   Updated: 2024/06/12 18:06:08 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "libft.h"
-
-//Mandatory
-int ft_printf(const char *str, ...);
-#endif
+int	ft_tolower(int c)
+{
+	if (!(c >= 'A' && c <= 'Z'))
+		return (c);
+	else
+		return (c + 32);
+}

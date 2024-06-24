@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 19:06:08 by epinaud           #+#    #+#             */
-/*   Updated: 2024/06/18 16:43:01 by epinaud          ###   ########.fr       */
+/*   Created: 2024/05/19 20:45:52 by epinaud           #+#    #+#             */
+/*   Updated: 2024/06/06 21:21:57 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "libft.h"
+char	*ft_strdup(char *s)
+{
+	char	*sptr;
+	int		len;
+	int		i;
 
-//Mandatory
-int ft_printf(const char *str, ...);
-#endif
+	len = ft_strlen(s) + 1;
+	sptr = malloc(sizeof(char) * len);
+	if (sptr == NULL)
+		exit(0);
+	i = 0;
+	while (i < (len))
+	{
+		sptr[i] = s[i];
+		i++;
+	}
+	return (sptr);
+}

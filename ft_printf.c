@@ -46,51 +46,42 @@ static int	ft_pcdr_handle(char *pcdr, void *arg, size_t *strlen)
 	paramset = "cspdiuxX%";
 	pcdr_code = 0;
 	offset = 0;
-	while (*pcdr != ' ' && *pcdr != '\0')
-	{
-		if (pcdr_code > 99)
-			pcdr_code = pcdr_code * 100 + *pcdr;
-		else if (*pcdr > 9)
-			pcdr_code = pcdr_code * 10 + *pcdr;
-		else
-			pcdr_code = *pcdr;
-		pcdr++;
-		offset++;
-	}
-
+	while (pcdr[offset] != ' ' && pcdr[offset] != '\0')
+			pcdr_code = pcdr_code * 10 + pcdr[offset++];
+	printf("PCDR CODE IS : %d \n\n\n\n\n\n\n", pcdr_code);
 	switch (pcdr_code)
 	{
-		case 'c' :
-			ft_putchar_fd((char)arg, 1);
+		case 99 :
+			ft_putstr_fd("0", 1);
 			strlen += 1;
 		break ;
-		case 's' :
-			ft_putstr_fd((char *)arg, 1);
+		case 163 :
+			ft_putstr_fd("C\0", 1);
 			strlen += ft_strlen((char *)arg);
 		break ;
 		case 'p' :
-			ft_putstr_fd(ft_itoa_base((int)arg, "0123456789abcdef"), 1);
-			strlen += ft_nbrlen((long int)arg);
+			ft_putstr_fd(ft_itoa_base((long int)arg, "0123456789abcdef"), 1);
+			
 		break ;
 		case 'd' :
-			ft_putstr_fd(ft_itoa((int)arg), 1);
-			strlen += ft_nbrlen((long int)arg);
+			ft_putstr_fd(ft_itoa((long int)arg), 1);
+			
 		break ;
 		case 'i' :
-			ft_putstr_fd(ft_itoa((int)arg), 1);
-			strlen += ft_nbrlen((long int)arg);
+			ft_putstr_fd(ft_itoa((long int)arg), 1);
+			
 		break ;
 		case 'u' :
-			ft_putstr_fd(ft_itoa((unsigned int)arg), 1);
-			strlen += ft_nbrlen((long int)arg);
+			ft_putstr_fd(ft_itoa((unsigned long int)arg), 1);
+			
 		break ;
 		case 'x' :
-			ft_putstr_fd(ft_map_str(ft_itoa_base((int)arg, "0123456789abcdef"), ft_tolower), 1);
-			strlen += ft_nbrlen((long int)arg);
+			ft_putstr_fd(ft_map_str(ft_itoa_base((long int)arg, "0123456789abcdef"), ft_tolower), 1);
+			
 		break ;
 		case 'X' :
-			ft_putstr_fd(ft_map_str(ft_itoa_base((int)arg, "0123456789abcdef"), ft_toupper), 1);
-			strlen += ft_nbrlen((long int)arg);
+			ft_putstr_fd(ft_map_str(ft_itoa_base((long int)arg, "0123456789abcdef"), ft_toupper), 1);
+			
 		break ;
 		case '%' :
 			ft_putchar_fd('%', 1);
@@ -123,8 +114,7 @@ int	ft_printf(const char *str, ...)
 			str += ft_pcdr_handle((char *)str, va_arg(args, void*), &strlen);
 			continue;
 		}
-		ft_putchar_fd(*str, 1);
-		str++;
+		ft_putchar_fd(*str++, 1);
 		strlen++;
 	}
 	va_end(args);

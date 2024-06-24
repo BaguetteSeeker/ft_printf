@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 19:06:08 by epinaud           #+#    #+#             */
-/*   Updated: 2024/06/18 16:43:01 by epinaud          ###   ########.fr       */
+/*   Created: 2024/06/22 01:19:34 by epinaud           #+#    #+#             */
+/*   Updated: 2024/06/22 01:28:28 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "libft.h"
+size_t	ft_nbrlen(long int nbr)
+{
+	size_t	count;
 
-//Mandatory
-int ft_printf(const char *str, ...);
-#endif
+	count = 0;
+	if (nbr == 0)
+		return (1);
+	if (nbr < 0)
+		count++;
+	while (nbr > 0)
+	{
+		nbr /= 10;
+		count++;
+	}
+	return (count);
+}
