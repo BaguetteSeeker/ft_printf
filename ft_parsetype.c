@@ -10,39 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	parsetype(int type, void *argptr)
-{
-	if (type == 110)
-		return ft_nbrlen(vtoint(*argptr));
-	else if (type == 99)
-		return vtochar(*argptr);
-	else if (type == 115)
-		return ft_strlen(vtocharptr(*argptr));
-}
+#include "libft.h"
 
 static int	vtoint(void *argptr)
 {
-	int	argptr;
+	int	*param;
 	
 	param = argptr;
-	ft_putnbr_fd(*argptr, 1);
-	return (param);
+	ft_putnbr_fd(*param, 1);
+	return (*param);
 }
 
 static char	vtochar(void *argptr)
 {
-	char	param*;
+	char	*param;
 
 	param = argptr;
-	ft_putchar_fd(*argptr, 1);
-	return (param);
+	ft_putchar_fd(*param, 1);
+	return (*param);
 }
 
 static char	*vtocharptr(void *argptr)
 {
-	char * param;
+	char *param;
 
 	param = argptr;
-	ft_putstr_fd(argptr, 1);
+	ft_putstr_fd(param, 1);
 	return (param);
+}
+
+int	parsetype(int type, void *argptr)
+{
+	if (type == 110)
+		return ft_nbrlen(vtoint(argptr));
+	else if (type == 99)
+		return vtochar(argptr);
+	else if (type == 115)
+		return ft_strlen(vtocharptr(argptr));
+	else
+		return (0);
 }

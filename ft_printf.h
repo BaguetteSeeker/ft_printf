@@ -18,4 +18,5 @@
 
 //Mandatory
 int ft_printf(const char *str, ...);
+int parsetype(int type, void *argptr);
 #endif

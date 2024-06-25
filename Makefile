@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CFILES = ft_printf.c
+CFILES = ft_printf.c ft_parsetype.c
 
 LIBFTDIR = ../libft
 

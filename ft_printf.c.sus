@@ -37,7 +37,7 @@ static char	*ft_map_str(char *str, int (*f)(int))
 	return (offset);
 }*/
 
-static char	*ft_pcdr_handle(unsigned char pcdr, char *str, va_list args)
+static char	*ft_pcdr_handle(unsigned char pcdr, char *str, va_list *args)
 {
 	char	*paramset;
 	char	*converted_content;
@@ -47,35 +47,35 @@ static char	*ft_pcdr_handle(unsigned char pcdr, char *str, va_list args)
 	switch (pcdr)
 	{
 		case 'c' :
-			converted_content = va_arg(args, char *);
+			converted_content = va_arg(*args, char *);
 			offset = 1;
 		break ;
 		case 's' :
-			converted_content = va_arg(args, char *);
+			converted_content = va_arg(*args, char *);
 			offset = 1;
 		break ;
 		case 'p' :
-			converted_content = ft_itoa_base(va_arg(args, int), "0123456789abcdef");
+			converted_content = ft_itoa_base(va_arg(*args, int), "0123456789abcdef");
 			offset = 1;
 		break ;
 		case 'd' :
-			converted_content = ft_itoa(va_arg(args, int));
+			converted_content = ft_itoa(va_arg(*args, int));
 			offset = 1;
 		break ;
 		case 'i' :
-			converted_content = ft_itoa(va_arg(args, int));
+			converted_content = ft_itoa(va_arg(*args, int));
 			offset = 1;
 		break ;
 		case 'u' :
-			converted_content = ft_itoa(va_arg(args, unsigned int));
+			converted_content = ft_itoa(va_arg(*args, unsigned int));
 			offset = 1;
 		break ;
 		case 'x' :
-			converted_content = ft_map_str(ft_itoa_base(va_arg(args, int), "0123456789abcdef"), ft_tolower);
+			converted_content = ft_map_str(ft_itoa_base(va_arg(*args, int), "0123456789abcdef"), ft_tolower);
 			offset = 1;
 		break ;
 		case 'X' :
-			converted_content = ft_map_str(ft_itoa_base(va_arg(args, int), "0123456789abcdef"), ft_toupper);
+			converted_content = ft_map_str(ft_itoa_base(va_arg(*args, int), "0123456789abcdef"), ft_toupper);
 			offset = 1;
 		break ;
 		case '%' :
@@ -118,7 +118,7 @@ int	ft_printf(const char *str, ...)
 		else
 		{
 			prevstr = strtoprint;
-			strtoprint = ft_strjoin(prevstr, ft_pcdr_handle(**chains, *chains, args));
+			strtoprint = ft_strjoin(prevstr, ft_pcdr_handle(**chains, *chains, &args));
 			free(prevstr);
 			prevstr = NULL;
 			if (!strtoprint)

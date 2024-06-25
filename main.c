@@ -2,8 +2,8 @@
 
 int	main(void)
 {
-	char	*teststring = "Abcdef123586";
+	char	*teststring = "%s";
 	//printf("Abcdef123586");
-	ft_printf(teststring);
+	ft_printf(teststring, "-");
 	return (0);
 }
