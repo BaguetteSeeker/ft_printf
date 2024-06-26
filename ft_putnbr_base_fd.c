@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 18:47:14 by epinaud           #+#    #+#             */
-/*   Updated: 2024/06/06 21:21:09 by epinaud          ###   ########.fr       */
+/*   Created: 2024/06/26 15:02:09 by epinaud           #+#    #+#             */
+/*   Updated: 2024/06/26 15:12:11 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_base_fd(int n, char *base, int fd)
 {
+	int	blen;
+	printf("Base is %s \n", base);
+	blen = ft_strlen(base);
 	if (n == -2147483648)
 		ft_putstr_fd("-2147483648", fd);
 	else
@@ -23,8 +26,8 @@ void	ft_putnbr_fd(int n, int fd)
 			ft_putchar_fd('-', fd);
 			n = -n;
 		}
-		if (n > 9)
-			ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(n % 10 + 48, fd);
+		if (n > blen)
+			ft_putnbr_base_fd(n / blen, base, fd);
+		ft_putchar_fd(base[n % blen], fd);
 	}
 }

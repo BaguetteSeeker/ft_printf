@@ -56,26 +56,6 @@ static int	ft_base_integrity(char *base)
 	return (1);
 }
 
-static size_t	ft_count_digits(long int n)
-{
-	size_t	count;
-
-	count = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-	{
-		n = -n;
-		count++;
-	}
-	while (n > 0)
-	{
-		n /= 10;
-		count++;
-	}
-	return (count);
-}
-
 char	*ft_itoa_base(int n, char *base)
 {
 	long int	lnum;
@@ -83,7 +63,7 @@ char	*ft_itoa_base(int n, char *base)
 	char		*str;
 
 	lnum = n;
-	count = ft_count_digits(n);
+	count = ft_nbrlen(n);
 	str = malloc((count + 1) * sizeof(char));
 	if (!str || !ft_base_integrity(base))
 		return (NULL);

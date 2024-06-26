@@ -10,43 +10,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static int	vtoint(void *argptr)
+static int	print_nbr(int nbr)
 {
-	int	*param;
-	
-	param = argptr;
-	ft_putnbr_fd(*param, 1);
-	return (*param);
+	ft_putnbr_fd(nbr, 1);
+	return (ft_nbrlen(nbr));
 }
 
-static char	vtochar(void *argptr)
+static int	print_str(char *str)
 {
-	char	*param;
-
-	param = argptr;
-	ft_putchar_fd(*param, 1);
-	return (*param);
+	ft_putstr_fd(str, 1);
+	return (ft_strlen(str));
 }
 
-static char	*vtocharptr(void *argptr)
+static int	print_nbr_base(long long nbr, char *base)
 {
-	char *param;
-
-	param = argptr;
-	ft_putstr_fd(param, 1);
-	return (param);
+	ft_putnbr_base_fd(nbr, base, 1);
+	return (ft_nbrlen(nbr));
 }
 
-int	parsetype(int type, void *argptr)
+int	ft_printtype_caller(int type, long long *argptr)
 {
-	if (type == 110)
-		return ft_nbrlen(vtoint(argptr));
+	//i or d
+	if (type == 110 || type == 105)
+		return print_nbr((int)*argptr);
+	//c
 	else if (type == 99)
-		return vtochar(argptr);
+	{
+		ft_putchar_fd((int)*argptr, 1);
+		return (1);
+	}
+	//s
 	else if (type == 115)
-		return ft_strlen(vtocharptr(argptr));
+		return print_str((char *)*argptr);
+	//p
+	else if (type == 112)
+	{	
+		if (*argptr == 0)
+			return (print_str((char *)*argptr));
+		ft_putstr_fd("0x", 1);
+		return (print_nbr_base(*argptr, "0123456789abcdef") + 2);
+	}
+	// x or X
+	else if (type == 120)
+		return (print_nbr_base(*argptr, "0123456789abcdef"));
+	else if (type == 88)
+		return (print_nbr_base(*argptr, "0123456789ABCDEF"));
 	else
 		return (0);
 }

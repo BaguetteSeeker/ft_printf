@@ -20,17 +20,17 @@ OBJ_DIR = .obj
 
 LIBFTPTH = $(LIBFTDIR)/$(LIBFT_NAME)
 
-LIBOBJLOC = $(addprefix $(LIBFTDIR)/, $(LIBOBJ))
+LIBFILESLOC = $(addprefix $(LIBFTDIR)/, $(FT_FILES))
 
-LIBC = $(LIBOBJLOC:.o=.c)
+FT_FILES = ft_strlen.c ft_nbrlen.c ft_tolower.c ft_toupper.c ft_atoi.c ft_strdup.c ft_itoa.c ft_atoi_base.c ft_itoa_base.c ft_putstr_fd.c ft_putchar_fd.c ft_putnbr_fd.c ft_putnbr_base_fd.c
 
-LIBOBJ = ft_strlen.o ft_nbrlen.o ft_tolower.o ft_toupper.o ft_atoi.o ft_strdup.o ft_itoa.o ft_atoi_base.o ft_itoa_base.o ft_putstr_fd.o ft_putchar_fd.o ft_putnbr_fd.o
+LIB_OBJ = $(FT_FILES:.c=.o)
 
-LIBOBJPTH = $(addprefix $(OBJ_DIR)/, $(LIBOBJ))
+#LIBOBJPTH = $(addprefix $(OBJ_DIR)/, $(LIBOBJ))
   
 OBJ = $(CFILES:.c=.o)
 
-OBJALL = $(CFILES:.c=.o) $(BONUS:.c=.o)
+OBJALL = $(CFILES:.c=.o) $(FT_FILES:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -ggdb3
 
@@ -38,12 +38,11 @@ NAME = libftprintf.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBOBJLOC)
-	cp $(LIBOBJLOC) $(LIBC) .
-	ar rcs $(NAME) $(OBJ) $(LIBOBJLOC)
+$(NAME): $(OBJ) $(LIB_OBJ)
+	ar rcs $(NAME) $(OBJ) $(LIB_OBJ)
 
 clean:
-	rm -f $(OBJ) $(LIBOBJ)
+	rm -f $(OBJ) $(LIB_OBJ)
 
 fclean:  clean
 	rm -f $(NAME)

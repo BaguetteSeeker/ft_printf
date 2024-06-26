@@ -61,6 +61,7 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_atoi_base(char *str, char *base);
 char	*ft_itoa_base(int n, char *base);
 size_t	ft_nbrlen(long int nbr);
+void	ft_putnbr_base_fd(int n, char *base, int fd);
 
 //Bonus
 typedef struct s_list
@@ -79,3 +80,4 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 #endif
+
