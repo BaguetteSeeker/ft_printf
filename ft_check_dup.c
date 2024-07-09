@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_check_dup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 18:47:14 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/06 18:51:41 by epinaud          ###   ########.fr       */
+/*   Created: 2024/07/05 18:43:42 by epinaud           #+#    #+#             */
+/*   Updated: 2024/07/05 19:00:05 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_putnbr_fd(long int n, int fd)
+int	ft_check_dup(char *str)
 {
-	if (n == -2147483648)
-		ft_putstr_fd("-2147483648", fd);
-	else
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 1;
+	while (str[i] != '\0')
 	{
-		if (n < 0)
+		j = i + 1;
+		while (str[j] != '\0')
 		{
-			ft_putchar_fd('-', fd);
-			n = -n;
+			if (str[i] == str[j])
+				return (str[i]);
+			j++;
 		}
-		if (n > 9)
-			ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(n % 10 + 48, fd);
+		i++;
 	}
+	return (0);
 }

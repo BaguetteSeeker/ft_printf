@@ -20,7 +20,10 @@ size_t	ft_nbrlen(long int nbr)
 	if (nbr == 0)
 		return (1);
 	if (nbr < 0)
+	{
+		nbr = -nbr;
 		count++;
+	}
 	while (nbr > 0)
 	{
 		nbr /= 10;

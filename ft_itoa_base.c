@@ -6,57 +6,29 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:54:43 by epinaud           #+#    #+#             */
-/*   Updated: 2024/06/24 16:08:39 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/05 18:59:47 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_check_dup(char *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 1;
-	while (str[i] != '\0')
-	{
-		j = i + 1;
-		while (str[j] != '\0')
-		{
-			if (str[i] == str[j])
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	ft_allowed_char(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	else if (c == '+' || c == '-')
-		return (1);
-	else
-		return (0);
-}
-
 static int	ft_base_integrity(char *base)
 {
-	if (!*base || !*base + 1 || ft_check_dup(base))
+	int	i;
+
+	i = 0;
+	if (base[0] == '\0' || base[1] == '\0' || ft_check_dup(base) == 1)
 		return (0);
-	while (*base)
+	while (base[i])
 	{
-		if (ft_allowed_char(*base))
+		if (base[i] == '+' || base[i] == '-')
 			return (0);
-		base++;
+		i++;
 	}
 	return (1);
 }
 
-char	*ft_itoa_base(int n, char *base)
+char	*ft_itoa_base(long int n, char *base)
 {
 	long int	lnum;
 	size_t		count;

@@ -10,13 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  FT_PRINTF_H
+#ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <limits.h>
 # include "libft.h"
 
 //Mandatory
-int ft_printf(const char *str, ...);
-int ft_printtype_caller(int type, long long *);
+int	ft_printf(const char *str, ...);
+int	ft_printtype_rooter(int type, long long argptr);
 #endif
