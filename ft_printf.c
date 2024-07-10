@@ -6,31 +6,35 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/10 14:37:43 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:27:15 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int	ft_parse_type(char *pcdr, size_t *offset)
+{
+	int	code;
+
+	code = 0;
+	while (pcdr[*offset] != ' ' && pcdr[*offset])
+	{
+		code = code * 10 + pcdr[*offset];
+		*offset += 1;
+		if (pcdr[*offset] == '%' )
+			break ;
+	}
+	return (code);
+}
 
 static int	ft_pcdr_handle(char *pcdr, va_list *arg, size_t *strlen)
 {
 	int		pcdr_code;
 	size_t	offset;
 
-	pcdr_code = 0;
 	offset = 0;
-	while (pcdr[offset] != ' ' && pcdr[offset])
-	{
-		pcdr_code = pcdr_code * 10 + pcdr[offset++];
-		if (pcdr[offset] == '%' )
-			break ;
-	}
-	if (pcdr_code == 99)
-	{
-		ft_putchar_fd(va_arg(*arg, int), 1);
-		*strlen += 1;
-	}
-	else if (pcdr_code == 37)
+	pcdr_code = ft_parse_type(pcdr, &offset);
+	if (pcdr_code == '%')
 	{
 		ft_putchar_fd('%', 1);
 		*strlen += 1;
