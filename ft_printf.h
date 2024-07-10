@@ -19,5 +19,7 @@
 
 //Mandatory
 int	ft_printf(const char *str, ...);
-int	ft_printtype_rooter(int type, long long argptr);
+int	ft_print_type_router(int type, long long argptr);
+int	ft_base_integrity(char *base);
+int	ft_check_dup(char *str);
 #endif

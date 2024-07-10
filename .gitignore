@@ -3,4 +3,5 @@
 *.sus
 *.out
 *.gch
+*.json
 main.c

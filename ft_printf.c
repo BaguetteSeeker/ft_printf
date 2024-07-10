@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/06 18:52:05 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:37:43 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_pcdr_handle(char *pcdr, va_list *arg, size_t *strlen)
 		*strlen += 1;
 	}
 	else
-		*strlen += ft_printtype_rooter(pcdr_code, va_arg(*arg, long long));
+		*strlen += ft_print_type_router(pcdr_code, va_arg(*arg, long long));
 	return (offset);
 }
 

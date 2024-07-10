@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsetype.c                                     :+:      :+:    :+:   */
+/*   ft_print_type.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/09 21:10:04 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:37:46 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	print_nbr_base(unsigned long long nbr, char *base)
 	return (ft_putnbr_base_fd(nbr, base, 1));
 }
 
-int	ft_printtype_rooter(int type, long long argptr)
+int	ft_print_type_router(int type, long long argptr)
 {
 	if (type == 'd' || type == 'i' || type == 'u')
 		return (print_nbr(argptr, type));
