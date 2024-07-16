@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/10 15:27:15 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/17 00:16:20 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ int	ft_printf(const char *str, ...)
 	strlen = 0;
 	while (*str)
 	{
-		if (*str == '%')
+		if (*str == '%' && str[1])
 		{
 			str++;
+			str += ft_parse_directives((char *)str, &args).offset;
 			str += ft_pcdr_handle((char *)str, &args, &strlen);
 			continue ;
 		}

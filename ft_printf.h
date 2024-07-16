@@ -22,4 +22,23 @@ int	ft_printf(const char *str, ...);
 int	ft_print_type_router(int type, long long argptr);
 int	ft_base_integrity(char *base);
 int	ft_check_dup(char *str);
+
+//Bonus
+
+typedef struct s_directives
+{
+	int	spec;
+	int	width;
+	int	left;
+	int	zero;
+	int	star;
+	int	precision;
+	int	hash;
+	int	space;
+	int	plus;
+    int offset;
+}		t_directives;
+
+t_directives    ft_parse_directives(const char *str, va_list *args);
+
 #endif
