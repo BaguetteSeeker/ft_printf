@@ -24,7 +24,6 @@ int	ft_base_integrity(char *base);
 int	ft_check_dup(char *str);
 
 //Bonus
-
 typedef struct s_directives
 {
 	int	spec;
@@ -39,6 +38,8 @@ typedef struct s_directives
     int offset;
 }		t_directives;
 
-t_directives    ft_parse_directives(const char *str, va_list *args);
+t_directives    ft_init_directives(t_directives dirs);
+t_directives    ft_parse_directives(const char *str, va_list *args, t_directives dirs);
 
 #endif
+

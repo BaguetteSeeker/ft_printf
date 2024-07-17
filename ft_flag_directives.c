@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/17 00:18:58 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/17 21:27:00 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,45 @@ int	ft_isdirective(int c)
 	return (ft_strchr("-0.*# +", c));
 }
 
-t_directives	ft_parse_directives(const char *str, va_list *args)
+static t_directives	ft_init_directives(t_directives dirs)
 {
-	t_directives	directives;
+	dirs.spec = 0;
+	dirs.width = 0;
+	dirs.left = 0;
+	dirs.zero = 0;
+	dirs.star = 0;
+	dirs.precision = -1;
+	dirs.hash = 0;
+	dirs.space = 0;
+	dirs.plus = 0;
+	return (dirs);
+}
 
-	while (*str && ft_isflag(*str))
+t_directives	ft_parse_directives(const char *str, va_list *args, t_directives dirs)
+{
+	while (*str && ft_strchr("-0.*# +", *str))
 	{
 		if (*str == '-')
-			ft_flag_left(directives);
+			ft_flag_left(dirs);
 		else if (*str == '#')
-			directives.hash = 1;
+			dirs.hash = 1;
 		else if (*str == ' ')
-			directives.space = 1;
+			dirs.space = 1;
 		else if (*str == '+')
-			directives.plus = 1;
-		else if (*str == '0' && directives.left == 0 && directives.width == 0)
-			directives.zero = 1;
+			dirs.plus = 1;
+		else if (*str == '0' && dirs.left == 0 && dirs.width == 0)
+			dirs.zero = 1;
 		else if (*str == '.')
-			directives.offset = ft_flag_precision(*str, directives.offset, *args, directives);
+			dirs.offset = ft_flag_precision(*str, dirs.offset, *args, dirs);
 		else if (*str == '*')
-			ft_flag_width(*args, directives);
+			ft_flag_width(*args, dirs);
 		else if (ft_isdigit(*str))
-			ft_flag_digit(*str, directives);
+			ft_flag_digit(*str, dirs);
 		else if (ft_istype(*str))
 		{
-			directives.spec = *str;
+			dirs.spec = *str;
 			break ;
 		}
 	}
-	return (directives);
+	return (dirs);
 }

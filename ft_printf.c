@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/17 00:16:20 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/17 21:27:03 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,22 @@ int	ft_printf(const char *str, ...)
 {
 	va_list	args;
 	size_t	strlen;
+	t_directives dirs;
 
 	if (!str)
 		return (0);
-	va_start(args, str);
 	strlen = 0;
+	ft_init_directives(dirs);
+	va_start(args, str);
 	while (*str)
 	{
 		if (*str == '%' && str[1])
 		{
 			str++;
-			str += ft_parse_directives((char *)str, &args).offset;
+			str += ft_parse_directives((char *)str, &args, dirs).offset;
+			ft_print_prefix(dirs);
 			str += ft_pcdr_handle((char *)str, &args, &strlen);
+			ft_print_suffix(dirs);
 			continue ;
 		}
 		ft_putchar_fd(*str++, 1);
