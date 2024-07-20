@@ -39,7 +39,8 @@ typedef struct s_directives
 }		t_directives;
 
 t_directives    ft_init_directives(t_directives dirs);
-t_directives    ft_parse_directives(const char *str, va_list *args, t_directives dirs);
+t_directives    ft_parse_directives(const char *str, va_list args, t_directives dirs);
+void	ft_print_dirs(t_directives dirs);
 
 #endif
 

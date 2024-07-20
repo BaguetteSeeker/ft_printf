@@ -6,25 +6,11 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/10 18:15:21 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:18:08 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static int	print_nil(int ntype)
-{
-	if (ntype == 5)
-	{
-		ft_putstr_fd("(nil)", 1);
-		return (5);
-	}
-	else
-	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
-	}
-}
 
 static int	print_nbr(int nbr, int type)
 {
@@ -46,7 +32,10 @@ static int	print_nbr(int nbr, int type)
 static int	print_str(char *str)
 {
 	if (str == 0)
-		return (print_nil(6));
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
 	ft_putstr_fd(str, 1);
 	return (ft_strlen(str));
 }
@@ -54,7 +43,10 @@ static int	print_str(char *str)
 static int	print_ptr(unsigned long long nbr, char *base)
 {
 	if (nbr == 0)
-		return (print_nil(5));
+	{
+		ft_putstr_fd("(nil)", 1);
+		return (5);
+	}
 	ft_putstr_fd("0x", 1);
 	return (ft_putnbr_base_fd(nbr, base, 1) + 2);
 }
