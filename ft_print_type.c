@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/19 18:18:08 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/07/22 14:44:29 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,25 @@ static int	print_ptr(unsigned long long nbr, char *base)
 	return (ft_putnbr_base_fd(nbr, base, 1) + 2);
 }
 
-int	ft_print_type_router(int type, long long argptr)
+int	ft_print_type_router(int type, va_list arg)
 {
-	if (type == 'd' || type == 'i' || type == 'u')
-		return (print_nbr(argptr, type));
+	if (type == '%')
+		return (write(1, &"%", 1));
+	else if (type == 'd' || type == 'i' || type == 'u')
+		return (print_nbr(va_arg(arg, long long), type));
 	else if (type == 'c')
 	{
-		ft_putchar_fd((int)argptr, 1);
+		ft_putchar_fd(va_arg(arg, int), 1);
 		return (1);
 	}
 	else if (type == 's')
-		return (print_str((char *)argptr));
+		return (print_str(va_arg(arg, char*)));
 	else if (type == 'p')
-		return (print_ptr((unsigned long)argptr, "0123456789abcdef"));
+		return (print_ptr(va_arg(arg, unsigned long), "0123456789abcdef"));
 	else if (type == 'x')
-		return (ft_putnbr_base_fd((unsigned int)argptr, "0123456789abcdef", 1));
+		return (ft_putnbr_base_fd(va_arg(arg, unsigned int), "0123456789abcdef", 1));
 	else if (type == 'X')
-		return (ft_putnbr_base_fd((unsigned int)argptr, "0123456789ABCDEF", 1));
+		return (ft_putnbr_base_fd(va_arg(arg, unsigned int), "0123456789ABCDEF", 1));
 	else
 		return (0);
 }

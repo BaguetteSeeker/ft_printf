@@ -19,14 +19,14 @@
 
 //Mandatory
 int	ft_printf(const char *str, ...);
-int	ft_print_type_router(int type, long long argptr);
+int	ft_print_type_router(int type, va_list arg);
 int	ft_base_integrity(char *base);
 int	ft_check_dup(char *str);
 
 //Bonus
 typedef struct s_directives
 {
-	int	spec;
+	int	type;
 	int	width;
 	int	left;
 	int	zero;
@@ -38,9 +38,8 @@ typedef struct s_directives
     int offset;
 }		t_directives;
 
-t_directives    ft_init_directives(t_directives dirs);
-t_directives    ft_parse_directives(const char *str, va_list args, t_directives dirs);
-void	ft_print_dirs(t_directives dirs);
+t_directives	ft_init_directives(t_directives dirs);
+t_directives	ft_parse_dirs(const char *str, va_list args, t_directives dirs);
+size_t			ft_prepend_print(long long arg, t_directives dirs);
 
 #endif
-
