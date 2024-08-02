@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/23 01:39:11 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/01 12:56:16 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ static int	print_ptr(unsigned long long nbr, char *base)
 	return (ft_putnbr_base_fd(nbr, base, 1) + 2);
 }
 
+static int	print_hex(unsigned int n, char *base)
+{
+	return (ft_putnbr_base_fd(n, base, 1));
+}
+
 int	ft_print_type_router(int type, va_list arg)
 {
 	if (type == '%')
@@ -67,9 +72,9 @@ int	ft_print_type_router(int type, va_list arg)
 	else if (type == 'p')
 		return (print_ptr(va_arg(arg, unsigned long), "0123456789abcdef"));
 	else if (type == 'x')
-		return (ft_putnbr_base_fd(va_arg(arg, unsigned int), "0123456789abcdef", 1));
+		return (print_hex(va_arg(arg, unsigned int), "0123456789abcdef"));
 	else if (type == 'X')
-		return (ft_putnbr_base_fd(va_arg(arg, unsigned int), "0123456789ABCDEF", 1));
+		return (print_hex(va_arg(arg, unsigned int), "0123456789ABCDEF"));
 	else
 		return (0);
 }

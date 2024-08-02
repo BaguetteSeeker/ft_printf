@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_nbrblen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 18:47:14 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/24 19:45:10 by epinaud          ###   ########.fr       */
+/*   Created: 2024/07/24 19:55:27 by epinaud           #+#    #+#             */
+/*   Updated: 2024/07/24 20:03:35 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_putnbr_fd(long int n, int fd, ...)
+size_t    ft_nbrblen(long int nbr, size_t baselen)
 {
-	va_list	no_sign;
-	
-	va_start(no_sign, fd);
-	if (n < 0 && !va_arg(no_sign, int))
-		ft_putchar_fd('-', 1);
-	if (n == 2147483648)
-		ft_putstr_fd("2147483648", fd);
-	else
+    size_t	count;
+
+	count = 0;
+	if (nbr == 0)
+		return (1);
+	if (nbr < 0)
 	{
-		if (n < 0)
-			n = -n;
-		if (n > 9)
-			ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(n % 10 + 48, fd);
+		nbr = -nbr;
+		count++;
 	}
-	va_end(no_sign);
+	while (nbr > 0)
+	{
+		nbr /= baselen;
+		count++;
+	}
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/24 17:47:18 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/02 17:36:56 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_parse_type(char *pcdr, size_t *offset)
 	int	code;
 
 	code = 0;
-	while (pcdr[*offset] != ' ' && pcdr[*offset])
+	while (pcdr[*offset] && ft_strchr("cspuidxX%", pcdr[*offset]))
 	{
 		code = code * 10 + pcdr[*offset];
 		*offset += 1;
@@ -37,10 +37,11 @@ static int	ft_eval_pcdr(char *pcdr, va_list *arg, size_t *strlen, t_directives d
 	offset = 0;
 	pcdr_code = ft_parse_type(pcdr, &offset);
 	if (pcdr_code != '%')
-		ft_prepend_print(va_arg(argcpy, long long), dirs);
+		*strlen += ft_print_directives(va_arg(argcpy, long long), dirs);
 	else
-		ft_prepend_print('%', dirs);
+		*strlen += ft_print_directives('%', dirs);
 	*strlen += ft_print_type_router(pcdr_code, *arg);
+	//*strlen += ft_print_directives('\0' dirs);
 	return (offset);
 }
 

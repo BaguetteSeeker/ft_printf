@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_count_digit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 18:47:14 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/24 19:45:10 by epinaud          ###   ########.fr       */
+/*   Created: 2024/07/27 14:19:57 by epinaud           #+#    #+#             */
+/*   Updated: 2024/07/27 14:25:17 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_putnbr_fd(long int n, int fd, ...)
+size_t ft_count_digits(char *str)
 {
-	va_list	no_sign;
-	
-	va_start(no_sign, fd);
-	if (n < 0 && !va_arg(no_sign, int))
-		ft_putchar_fd('-', 1);
-	if (n == 2147483648)
-		ft_putstr_fd("2147483648", fd);
-	else
-	{
-		if (n < 0)
-			n = -n;
-		if (n > 9)
-			ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(n % 10 + 48, fd);
-	}
-	va_end(no_sign);
+    size_t  dcount; 
+    
+    dcount = 0;
+    while (*str)
+    {
+        if (ft_isdigit(*str))
+            dcount++;
+        str++;
+    }
+    return (dcount);
 }
