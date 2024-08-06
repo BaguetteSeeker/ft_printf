@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:38:57 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/05 13:28:44 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/06 15:31:09 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_print_padding(int amount, char chr)
 {
 	int	i;
-
+	printf("Amount to print is %d",  amount);
 	i = 0;
 	if (chr == '\b')
 	{
@@ -34,28 +34,29 @@ static int	ft_print_padding(int amount, char chr)
 	return (amount);
 }
 
-size_t	ft_root_padding(t_directives dirs)
+size_t	ft_root_padding(int chr, t_directives dirs)
 {
-	size_t	final_arglen;
+	size_t	padlen;
 
+	padlen = 0;
 	if (ft_strchr("diuxX", dirs.type))
-		final_arglen = MAX(dirs.precision, dirs.arglen);
+		dirs.arglen = MAX(dirs.precision, dirs.arglen);
 	else if (dirs.type == 's')
-		final_arglen = MIN(dirs.precision, dirs.arglen);
-	printf("\n Arglen == %d && Final arglen : %ld \n Dirs.siglen = %d \n", dirs.arglen, final_arglen, dirs.siglen);
+		dirs.arglen = MIN(dirs.precision, dirs.arglen);
+	//printf("\n Evald Arglen == %d \n Dirs.siglen = %d \n Precision is : %d \n Arg contains %d Ndigits \n", dirs.arglen, dirs.siglen, dirs.precision, dirs.ndigits);
 	if (!dirs.put_tail)
 	{
-		if (!dirs.left)
-			dirs.outlen += ft_print_padding(dirs.width - final_arglen - dirs.siglen, ' ');
-		if (ft_strchr("diuxX", dirs.type) && dirs.precision)
-			dirs.outlen += ft_print_padding(dirs.precision - dirs.ndigits, '0');
+		if (!dirs.left && chr != '0')
+			padlen += ft_print_padding(dirs.width - dirs.arglen - dirs.siglen, ' ');
+		if (ft_strchr("diuxX", dirs.type) && dirs.precision && chr == '0')
+			padlen += ft_print_padding(dirs.precision - dirs.ndigits, '0');
 	}
 	else
 	{
 		if (dirs.type == 's')
-			dirs.outlen -= ft_print_padding(dirs.arglen - dirs.precision, '\b');
-		dirs.outlen += ft_print_padding(dirs.width - dirs.outlen, ' ');
+			padlen -= ft_print_padding(dirs.arglen - dirs.precision, '\b');
+		padlen += ft_print_padding(dirs.width - dirs.outlen, ' ');
 	}
-	
-	return (dirs.outlen);
+	//printf("\n Printed %ld padlen \n", padlen);
+	return (padlen);
 }

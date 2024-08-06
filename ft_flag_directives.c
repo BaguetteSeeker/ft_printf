@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/04 14:36:18 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/06 15:33:55 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static size_t	ft_count_signs(long long arg, t_directives dirs)
 			if (dirs.plus && arg >= 0)
 				dirs.outlen++;
 			else if ((int)arg < 0 && dirs.type != 'u')
-				dirs.outlen += 0;
+				dirs.outlen ++;
 			else if (dirs.space && arg >= 0)
 				dirs.outlen++;
 		}
@@ -67,12 +67,17 @@ static size_t	ft_count_signs(long long arg, t_directives dirs)
 
 size_t	ft_print_directives(long long arg, t_directives dirs)
 {
+	//space
+	//signs
+	//zeroes
+	//arg
+	//space
 	if (dirs.type == 's' && (char *)arg)
 		dirs.arglen = ft_strlen((char *)arg);
 	else if (dirs.type)
-		dirs.arglen = ft_nbrlen((int)arg);
+		dirs.arglen = ft_nbrdig((int)arg);
 	dirs.siglen = ft_count_signs(arg, dirs);
-	dirs.outlen += ft_root_padding(dirs);
+	dirs.outlen += ft_root_padding(' ', dirs);
 	if (!dirs.put_tail)
 	{
 		if (ft_strchr("iud", dirs.type))
@@ -80,12 +85,13 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 			if (dirs.plus && arg >= 0)
 				dirs.outlen += write(1, &"+", 1);
 			else if ((int)arg < 0 && dirs.type != 'u')
-				dirs.outlen += write(1, &"-", 1) - 1;
+				dirs.outlen += write(1, &"-", 1);
 			else if (dirs.space && arg >= 0)
 				dirs.outlen += write(1, &" ", 1);
 		}
 		else if (dirs.hash && ft_strchr("xX", dirs.type))
 			dirs.outlen += ft_printf("0%c", dirs.type);
+		dirs.outlen += ft_root_padding('0', dirs);
 	}
 	dirs.put_tail = 1;
 	return (dirs.outlen);
@@ -121,6 +127,9 @@ t_directives	ft_parse_dirs(const char *str, va_list args, t_directives *dirs)
 			dirs->ndigits = ft_count_digits(ft_itoa_base(va_arg(argcpy, long int), "0123456789abcdef"));
 		else if (ft_strchr("X", str[dirs->offset]))
 			dirs->ndigits = ft_count_digits(ft_itoa_base(va_arg(argcpy, long int), "0123456789ABCDEF"));
+		else if (ft_strchr("iud", str[dirs->offset]))
+			dirs->ndigits = ft_nbrdig(va_arg(argcpy, int));
+		//printf("Ndigits are : %d \n", dirs->ndigits);
 	}
 	if (ft_strchr("cspuidxX%", str[dirs->offset]))
 		dirs->type = str[dirs->offset];

@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/01 12:56:16 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/06 15:37:32 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static int	print_nbr(int nbr, int type)
 		{
 			ulnb = 0xffffffff + nbr + 1;
 			ft_putnbr_fd(ulnb, 1, 1);
-			return (ft_nbrlen(ulnb));
+			return (ft_nbrdig(ulnb));
 		}
 	}
 	ft_putnbr_fd(nbr, 1, 1);
-	return (ft_nbrlen(nbr));
+	return (ft_nbrdig(nbr));
 }
 
 static int	print_str(char *str)

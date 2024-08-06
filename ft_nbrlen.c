@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 01:19:34 by epinaud           #+#    #+#             */
-/*   Updated: 2024/06/22 01:28:28 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/06 15:08:44 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_nbrlen(long int nbr)
 {
 	size_t	count;
-
+	
 	count = 0;
 	if (nbr == 0)
 		return (1);
@@ -24,6 +24,23 @@ size_t	ft_nbrlen(long int nbr)
 		nbr = -nbr;
 		count++;
 	}
+	while (nbr > 0)
+	{
+		nbr /= 10;
+		count++;
+	}
+	return (count);
+}
+
+size_t	ft_nbrdig(long int nbr)
+{
+	size_t	count;
+	
+	count = 0;
+	if (nbr == 0)
+		return (1);
+	if (nbr < 0)
+		nbr = -nbr;
 	while (nbr > 0)
 	{
 		nbr /= 10;

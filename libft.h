@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:06:08 by epinaud           #+#    #+#             */
-/*   Updated: 2024/07/27 15:08:00 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/06 15:12:17 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(long int n, int fd, ...);
 
 //Personnal add-ons
-int		ft_check_dup(char *str);
-int		ft_atoi_base(char *str, char *base);
-char	*ft_itoa_base(long int n, char *base, ...);
 size_t	ft_count_digits(char *str);
 size_t	ft_nbrlen(long int nbr);
 size_t  ft_nbrblen(long int nbr, size_t baselen);
+size_t	ft_nbrdig(long int nbr);
 size_t	ft_putnbr_base_fd(unsigned long long n, char *base, int fd);
+int		ft_check_dup(char *str);
+int		ft_atoi_base(char *str, char *base);
+char	*ft_itoa_base(long int n, char *base, ...);
 
 //Bonus
 typedef struct s_list
