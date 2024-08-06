@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/06 15:33:55 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/06 23:14:45 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_directives	ft_init_directives(t_directives dirs)
 	dirs.left = 0;
 	dirs.zero = 0;
 	dirs.star = 0;
-	dirs.precision = 0;
+	dirs.precision = -1;
 	dirs.hash = 0;
 	dirs.space = 0;
 	dirs.plus = 0;
@@ -99,14 +99,18 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 
 static int	ft_parse_len(const char *str, int offset, va_list args, int *ldest)
 {
+	int	n;
+
+	n = 0;
 	if (str[offset] == '*')
 	{
 		offset++;
-		*ldest = va_arg(args, int);
+		n = va_arg(args, int);
 	}
 	else
 		while (ft_isdigit(str[offset]))
-			*ldest = (*ldest * 10) + (str[offset++] - '0');
+			n = (n * 10) + (str[offset++] - '0');
+	*ldest = n;
 	return (offset);
 }
 
