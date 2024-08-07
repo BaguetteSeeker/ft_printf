@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/07 12:11:20 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:39:20 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 		dirs.arglen = ft_nbrdig((int)arg);
 	dirs.siglen = ft_count_signs(arg, dirs);
 	dirs.outlen += ft_root_padding(' ', dirs);
+	//printf("Arglen in printd dirs is %d \n", dirs.arglen);
 	if (!dirs.put_tail)
 	{
-		if (ft_strchr("iudp", dirs.type))
+		if (ft_strchr("iud", dirs.type))
 		{
 			if (dirs.plus && arg >= 0)
 				dirs.outlen += write(1, &"+", 1);

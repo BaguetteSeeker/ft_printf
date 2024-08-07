@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:38:57 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/07 13:07:34 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:37:10 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ size_t	ft_root_padding(int chr, t_directives dirs)
 	padlen = 0;
 	if (ft_strchr("diuxX", dirs.type))
 		dirs.arglen = MAX(dirs.precision, dirs.arglen);
-	else if (dirs.type == 's' && dirs.precision != -1)
-		dirs.arglen = MIN(dirs.precision, dirs.arglen);
+
  	//printf("\n Evald Arglen == %d \n Dirs.siglen = %d \n Precision is : %d \n Arg contains %d Ndigits \n", dirs.arglen, dirs.siglen, dirs.precision, dirs.ndigits);
 	if (!dirs.put_tail)
 	{
@@ -53,7 +52,7 @@ size_t	ft_root_padding(int chr, t_directives dirs)
 	}
 	else
 	{
-		//printf("Dirs precision at puttail padding is : %d \n", dirs.precision);
+		//printf("\n Arglen is %d at Putail \n Precision at puttail padding is : %d \n", dirs.arglen, dirs.precision);
 		if (dirs.type == 's' && dirs.precision != -1)
 			padlen -= ft_print_padding(dirs.arglen - dirs.precision, '\b');
 		else if (ft_strchr("diuxX", dirs.type) && dirs.precision == 0)

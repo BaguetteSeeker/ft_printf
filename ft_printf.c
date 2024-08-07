@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/07 13:00:32 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:37:02 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,19 @@ static int	ft_eval_pcdr(char *pcdr, va_list *arg, size_t *strlen, t_directives d
 	int		pcdr_code;
 	size_t	offset;
 	va_list	argcpy;
+	long long	argval;
 
 	va_copy(argcpy, *arg);
+	argval = va_arg(argcpy, long long);
 	offset = 0;
 	pcdr_code = ft_parse_type(pcdr, &offset);
 	if (pcdr_code != '%')
-		*strlen += ft_print_directives(va_arg(argcpy, long long), dirs);
+		*strlen += ft_print_directives(argval, dirs);
 	else
 		*strlen += ft_print_directives('%', dirs);
 	*strlen += ft_print_type_router(pcdr_code, *arg);
 	dirs.put_tail = 1;
-	*strlen += ft_print_directives('\0', dirs);
+	*strlen += ft_print_directives(argval, dirs);
 	return (offset);
 }
 
