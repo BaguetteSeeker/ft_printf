@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/06 23:14:45 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 11:18:22 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 			dirs.outlen += ft_printf("0%c", dirs.type);
 		dirs.outlen += ft_root_padding('0', dirs);
 	}
-	dirs.put_tail = 1;
 	return (dirs.outlen);
 }
 
@@ -110,6 +109,7 @@ static int	ft_parse_len(const char *str, int offset, va_list args, int *ldest)
 	else
 		while (ft_isdigit(str[offset]))
 			n = (n * 10) + (str[offset++] - '0');
+	//printf("PArsed int is %d \n", n);
 	*ldest = n;
 	return (offset);
 }
