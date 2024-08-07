@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/07 11:18:22 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 12:11:20 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,6 @@ static size_t	ft_count_signs(long long arg, t_directives dirs)
 
 size_t	ft_print_directives(long long arg, t_directives dirs)
 {
-	//space
-	//signs
-	//zeroes
-	//arg
-	//space
 	if (dirs.type == 's' && (char *)arg)
 		dirs.arglen = ft_strlen((char *)arg);
 	else if (dirs.type)
@@ -80,7 +75,7 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 	dirs.outlen += ft_root_padding(' ', dirs);
 	if (!dirs.put_tail)
 	{
-		if (ft_strchr("iud", dirs.type))
+		if (ft_strchr("iudp", dirs.type))
 		{
 			if (dirs.plus && arg >= 0)
 				dirs.outlen += write(1, &"+", 1);
@@ -88,6 +83,8 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 				dirs.outlen += write(1, &"-", 1);
 			else if (dirs.space && arg >= 0)
 				dirs.outlen += write(1, &" ", 1);
+			if (dirs.type == 'p' && (int)arg == 0)
+				dirs.outlen -= write(1, "\b \b", 1);
 		}
 		else if (dirs.hash && ft_strchr("xX", dirs.type))
 			dirs.outlen += ft_printf("0%c", dirs.type);
