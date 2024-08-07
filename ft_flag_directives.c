@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/07 13:52:58 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 14:27:07 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 	//printf("Arglen in printd dirs is %d \n", dirs.arglen);
 	if (!dirs.put_tail)
 	{
-		if (ft_strchr("iud", dirs.type))
+		if (ft_strchr("iudp", dirs.type))
 		{
 			if (dirs.plus && arg >= 0)
 				dirs.outlen += write(1, &"+", 1);
-			else if ((int)arg < 0 && dirs.type != 'u')
+			else if ((int)arg < 0 && dirs.type != 'u' && dirs.type != 'p')
 				dirs.outlen += write(1, &"-", 1);
 			else if (dirs.space && arg >= 0)
 				dirs.outlen += write(1, &" ", 1);
-			if (dirs.type == 'p' && (int)arg == 0)
+			if (dirs.type == 'p' && arg == 0)
 				dirs.outlen -= write(1, "\b \b", 1);
 		}
 		else if (dirs.hash && ft_strchr("xX", dirs.type))

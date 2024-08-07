@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:19:57 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/05 16:25:14 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 14:22:54 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t  ft_count_digits(char *str)
 {
     size_t  dcount; 
     
+    if (!str)
+        return (0);
     dcount = 0;
     while (*str)
     {
