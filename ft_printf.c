@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/07 13:37:02 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:52:34 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ static int	ft_eval_pcdr(char *pcdr, va_list *arg, size_t *strlen, t_directives d
 		*strlen += ft_print_directives('%', dirs);
 	*strlen += ft_print_type_router(pcdr_code, *arg);
 	dirs.put_tail = 1;
-	*strlen += ft_print_directives(argval, dirs);
+	if (pcdr_code != '%')
+		*strlen += ft_print_directives(argval, dirs);
+	else
+		*strlen += ft_print_directives('%', dirs);
 	return (offset);
 }
 
