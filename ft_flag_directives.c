@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/07 14:27:07 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/07 14:34:31 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ static t_directives	ft_parse_flags(const char *str, t_directives dirs)
 static size_t	ft_count_signs(long long arg, t_directives dirs)
 {
 	dirs.outlen = 0;
-	if (ft_strchr("iud", dirs.type))
+	if (ft_strchr("iudp", dirs.type))
 		{
 			if (dirs.plus && arg >= 0)
 				dirs.outlen++;
-			else if ((int)arg < 0 && dirs.type != 'u')
+			else if ((int)arg < 0 && dirs.type != 'u' && dirs.type != 'p')
 				dirs.outlen ++;
 			else if (dirs.space && arg >= 0)
 				dirs.outlen++;
+			if (dirs.type == 'p' && arg == 0 && dirs.siglen > 0)
+				dirs.outlen--;				
 		}
 		else if (dirs.hash && ft_strchr("xX", dirs.type))
 			dirs.outlen += 2;
@@ -84,7 +86,7 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 				dirs.outlen += write(1, &"-", 1);
 			else if (dirs.space && arg >= 0)
 				dirs.outlen += write(1, &" ", 1);
-			if (dirs.type == 'p' && arg == 0)
+			if (dirs.type == 'p' && arg == 0 && dirs.siglen > 0)
 				dirs.outlen -= write(1, "\b \b", 1);
 		}
 		else if (dirs.hash && ft_strchr("xX", dirs.type))
