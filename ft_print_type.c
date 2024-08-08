@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/06 15:37:32 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/08 19:18:22 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ static int	print_ptr(unsigned long long nbr, char *base)
 		ft_putstr_fd("(nil)", 1);
 		return (5);
 	}
-	ft_putstr_fd("0x", 1);
-	return (ft_putnbr_base_fd(nbr, base, 1) + 2);
+	return (ft_putnbr_base_fd(nbr, base, 1));
 }
 
 static int	print_hex(unsigned int n, char *base)
