@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:38:57 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/08 22:34:04 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/09 02:31:59 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_print_padding(int amount, char chr)
 	{
 		while (i < amount)
 		{
-			ft_putstr_fd("\b \b", 1);
+			ft_putstr_fd("\b\0", 1);
 			//ft_putchar_fd('\b', 1);
 			i++;
 		}
@@ -59,8 +59,8 @@ size_t	ft_root_padding(int chr, t_directives dirs)
 		//printf("\n Arglen is %d at Putail \n Precision at puttail padding is : %d \n", dirs.arglen, dirs.precision);
 		if (dirs.type == 's' && dirs.precision != -1)
 			padlen -= ft_print_padding(dirs.arglen - dirs.precision, '\b');
-		else if (ft_strchr("diuxX", dirs.type) && dirs.precision == 0)
-			padlen -= ft_print_padding(1, '\b');
+		//else if (ft_strchr("diuxX", dirs.type) && dirs.precision == 0 &&)
+			//padlen -= ft_print_padding(1, '\b');
 		padlen += ft_print_padding(dirs.width - dirs.outlen, ' ');
 				//printf("Padlen is %ld \n outlen is %d \n", padlen, dirs.outlen);
 	}

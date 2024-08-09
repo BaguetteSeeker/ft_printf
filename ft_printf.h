@@ -39,6 +39,7 @@ typedef struct s_directives
 	int	outlen;
 	int siglen;
 	int	arglen;
+	int maxlen;
 	int	ndigits;
 	int	put_tail;
 }		t_directives;

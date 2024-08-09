@@ -6,7 +6,7 @@
 #    By: epinaud <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/25 16:30:14 by epinaud           #+#    #+#              #
-#    Updated: 2024/08/08 22:19:54 by epinaud          ###   ########.fr        #
+#    Updated: 2024/08/09 01:21:15 by epinaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,8 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIB_OBJ)
 	ar rcs $(NAME) $(OBJ) $(LIB_OBJ)
 
+bonus: $(OBJ) $(LIB_OBJ)
+	ar rcs $(NAME) $(OBJ) $(LIB_OBJ)
 clean:
 	rm -f $(OBJ) $(LIB_OBJ)
 
