@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/09 00:41:53 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/09 19:03:46 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,20 @@ static int	print_nbr(int nbr, int type)
 	return (ft_nbrdig(nbr));
 }
 
-static int	print_str(char *str)
+static int	print_str(char *str, size_t cap, int putnull)
 {
 	if (str == 0)
 	{
+		if (!putnull)
+			return (0);
 		ft_putstr_fd("(null)", 1);
 		return (6);
 	}
-	ft_putstr_fd(str, 1);
-	return (ft_strlen(str));
+	ft_putstrcap_fd(str, cap, 1);
+	return (cap);
 }
 
-static int	print_ptr(unsigned long long nbr, char *base)
+static int	print_ptr(unsigned long nbr, char *base)
 {
 	if (nbr == 0)
 	{
@@ -55,7 +57,7 @@ static int	print_hex(unsigned int n, char *base)
 	return (ft_putnbr_base_fd(n, base, 1));
 }
 
-int	ft_print_type_router(int type, va_list arg)
+int	ft_print_type_router(int type, va_list arg, size_t cap, int putnull)
 {
 	if (type == '%')
 		return (write(1, &"%", 1));
@@ -67,7 +69,7 @@ int	ft_print_type_router(int type, va_list arg)
 		return (1);
 	}
 	else if (type == 's')
-		return (print_str(va_arg(arg, char*)));
+		return (print_str(va_arg(arg, char*), cap, putnull));
 	else if (type == 'p')
 		return (print_ptr(va_arg(arg, unsigned long), "0123456789abcdef"));
 	else if (type == 'x')

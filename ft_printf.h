@@ -19,7 +19,7 @@
 
 //Mandatory
 int	ft_printf(const char *str, ...);
-int	ft_print_type_router(int type, va_list arg);
+int	ft_print_type_router(int type, va_list arg, size_t cap, int putnull);
 int	ft_base_integrity(char *base);
 int	ft_check_dup(char *str);
 
@@ -41,6 +41,7 @@ typedef struct s_directives
 	int	arglen;
 	int maxlen;
 	int	ndigits;
+	int putnull;
 	int	put_tail;
 }		t_directives;
 

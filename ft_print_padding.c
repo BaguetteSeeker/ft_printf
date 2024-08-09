@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:38:57 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/09 02:31:59 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/09 19:25:38 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ size_t	ft_root_padding(int chr, t_directives dirs)
 	size_t	padlen;
 
 	padlen = 0;
-	if (ft_strchr("diuxXp", dirs.type))
-		dirs.arglen = MAX(dirs.precision, dirs.arglen);
  	//printf("\n Evald Arglen == %d \n Dirs.siglen = %d \n Precision is : %d \n Zero presence is %d \n Arg contains %d Ndigits \n", dirs.arglen, dirs.siglen, dirs.precision, dirs.zero, dirs.ndigits);
 	if (!dirs.put_tail)
 	{
@@ -53,16 +51,18 @@ size_t	ft_root_padding(int chr, t_directives dirs)
 			else if (dirs.zero)
 				padlen += ft_print_padding(dirs.width - dirs.arglen - dirs.siglen, '0');
 		}
+		//printf("Padlen %ld \n", padlen);
 	}
 	else
 	{
+		//printf("\n Width is %d \n Evald Arglen == %d \n Dirs.siglen = %d \n Precision is : %d \n Zero presence is %d \n Arg contains %d Ndigits \n", dirs.width, dirs.arglen, dirs.siglen, dirs.precision, dirs.zero, dirs.ndigits);
 		//printf("\n Arglen is %d at Putail \n Precision at puttail padding is : %d \n", dirs.arglen, dirs.precision);
-		if (dirs.type == 's' && dirs.precision != -1)
-			padlen -= ft_print_padding(dirs.arglen - dirs.precision, '\b');
+		//if (dirs.type == 's' && dirs.precision != -1)
+			//padlen -= ft_print_padding(dirs.arglen - dirs.precision, '\b');
 		//else if (ft_strchr("diuxX", dirs.type) && dirs.precision == 0 &&)
 			//padlen -= ft_print_padding(1, '\b');
+		//printf("Padlen is %ld \n outlen is %d \n", padlen, dirs.outlen);
 		padlen += ft_print_padding(dirs.width - dirs.outlen, ' ');
-				//printf("Padlen is %ld \n outlen is %d \n", padlen, dirs.outlen);
 	}
 	//printf("\n Printed %ld padlen \n", padlen);
 	return (padlen);

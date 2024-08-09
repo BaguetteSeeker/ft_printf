@@ -6,13 +6,13 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:02:09 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/07 16:45:53 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/09 14:04:34 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_putnbr_base_fd(unsigned long long n, char *base, int fd)
+size_t	ft_putnbr_base_fd(unsigned long n, char *base, int fd)
 {
 	size_t	blen;
 	size_t	nlen;
