@@ -37,17 +37,17 @@ typedef struct s_directives
 	int	plus;
 	int	offset;
 	int	outlen;
-	int siglen;
+	int	siglen;
 	int	arglen;
-	int maxlen;
+	int	maxlen;
 	int	ndigits;
-	int putnull;
+	int	putnull;
 	int	put_tail;
 }		t_directives;
 
-t_directives		ft_init_directives(t_directives dirs);
-t_directives		ft_parse_dirs(const char *str, va_list args, t_directives *dirs);
-size_t				ft_print_directives(long long arg, t_directives dirs);
-size_t				ft_root_padding(int chr, t_directives dirs);
+t_directives	ft_init_directives(t_directives dirs);
+t_directives	ft_parse_dirs(const char *str, va_list args, t_directives *dirs);
+size_t	ft_print_directives(long long arg, t_directives dirs);
+size_t	ft_root_padding(int chr, t_directives dirs);
 
 #endif

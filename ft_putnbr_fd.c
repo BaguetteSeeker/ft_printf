@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:47:14 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/09 03:25:57 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/10 09:47:15 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_putnbr_fd(long int n, int fd, ...)
 {
 	va_list	no_sign;
-	
+
 	va_start(no_sign, fd);
 	if (n < 0 && !va_arg(no_sign, int))
 		ft_putchar_fd('-', 1);

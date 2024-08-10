@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/09 19:03:46 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/10 09:43:21 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_print_type_router(int type, va_list arg, size_t cap, int putnull)
 		return (1);
 	}
 	else if (type == 's')
-		return (print_str(va_arg(arg, char*), cap, putnull));
+		return (print_str(va_arg(arg, char *), cap, putnull));
 	else if (type == 'p')
 		return (print_ptr(va_arg(arg, unsigned long), "0123456789abcdef"));
 	else if (type == 'x')

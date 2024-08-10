@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/10 09:33:47 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/10 09:48:58 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ static size_t	ft_count_signs(long long arg, t_directives dirs)
 			dirs.siglen += 2;		
 	}
 	if ((dirs.hash && ft_strchr("xX", dirs.type) && (unsigned int)arg))
-			dirs.siglen += 2;
+		dirs.siglen += 2;
 	return (dirs.siglen);
 }
 
 static size_t	ft_fetch_arglen(long long arg, int type, int putnull)
 {
 	size_t	arglen;
-	
+
 	arglen = 0;
 	if (type == 's' && (char *)arg)
 		arglen = ft_strlen((char *)arg);
@@ -134,7 +134,7 @@ static int	ft_parse_len(const char *str, int offset, va_list args, int *ldest)
 
 t_directives	ft_parse_dirs(const char *str, va_list args, t_directives *dirs)
 {
-	va_list	argcpy;
+	va_list		argcpy;
 	long long	arg;
 
 	va_copy(argcpy, args);
