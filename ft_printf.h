@@ -45,16 +45,6 @@ typedef struct s_directives
 	int	put_tail;
 }		t_directives;
 
-#define MIN(a,b) \
-   ({ __typeof__ (a) _a = (a); \
-       __typeof__ (b) _b = (b); \
-     _a < _b ? _a : _b; })
-
-#define MAX(a,b) \
-   ({ __typeof__ (a) _a = (a); \
-       __typeof__ (b) _b = (b); \
-     _a > _b ? _a : _b; })
-
 t_directives		ft_init_directives(t_directives dirs);
 t_directives		ft_parse_dirs(const char *str, va_list args, t_directives *dirs);
 size_t				ft_print_directives(long long arg, t_directives dirs);

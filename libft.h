@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:06:08 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/09 15:53:56 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/10 09:33:10 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(long int n, int fd, ...);
 
 //Personnal add-ons
+int	ft_minint(int a, int b);
+int ft_maxint(int a, int b);
 size_t	ft_count_digits(char *str);
 size_t	ft_nbrlen(long int nbr);
 size_t  ft_nbrblen(unsigned long nbr, size_t baselen);

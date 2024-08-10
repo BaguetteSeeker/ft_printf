@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 01:19:34 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/09 01:53:48 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/10 09:32:25 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,20 @@ size_t	ft_nbrdig(long int nbr)
 		count++;
 	}
 	return (count);
+}
+
+int ft_minint(int a, int b)
+{
+	if (a < b)
+		return (a);
+	else
+		return (b);
+}
+
+int ft_maxint(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }

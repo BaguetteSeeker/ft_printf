@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/10 08:52:00 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/10 09:33:47 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,9 @@ t_directives	ft_parse_dirs(const char *str, va_list args, t_directives *dirs)
 	if (ft_strchr("diuxX", dirs->type) && (int)arg == 0 && dirs->precision == 0)
 		dirs->arglen = 0;
 	else if (ft_strchr("diuxXp", dirs->type))
-		dirs->arglen = MAX(dirs->precision, dirs->arglen);
+		dirs->arglen = ft_maxint(dirs->precision, dirs->arglen);
 	else if (dirs->type == 's' && dirs->precision > -1 && (char *)arg != 0)
-		dirs->arglen = MIN(dirs->precision, dirs->arglen);
+		dirs->arglen = ft_minint(dirs->precision, dirs->arglen);
 	va_end(argcpy);
 	return (*dirs);
 }
