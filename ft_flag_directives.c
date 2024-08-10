@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/09 19:35:37 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/10 08:52:00 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,13 @@ static size_t	ft_fetch_arglen(long long arg, int type, int putnull)
 		arglen = ft_nbrlen(0xffffffff + (unsigned int)arg + 1);
 	else if (type == 'd' || type == 'i')
 		arglen = ft_nbrdig((int)arg);
-	//printf("Arglen is %ld \n" , arglen);
 	return (arglen);
 }
 
 size_t	ft_print_directives(long long arg, t_directives dirs)
 {
-	//printf("Fetched arglen is %ld \n", ft_fetch_arglen(arg, dirs.type));
 	dirs.siglen = ft_count_signs((int)arg, dirs);
 	dirs.outlen += ft_root_padding(' ', dirs);
-	//printf("Siglen in printd dirs is %d \n", dirs.siglen);
 	if (!dirs.put_tail)
 	{
 		if (ft_strchr("iudp", dirs.type))
@@ -115,8 +112,6 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 			dirs.outlen += ft_printf("0%c", dirs.type);
 		dirs.outlen += ft_root_padding('0', dirs);
 	}
-	
-	//printf("Actual outlen is %d \n", dirs.outlen);
 	return (dirs.outlen);
 }
 
@@ -158,7 +153,6 @@ t_directives	ft_parse_dirs(const char *str, va_list args, t_directives *dirs)
 			dirs->ndigits = ft_nbrdig((int)arg);
 		else if (str[dirs->offset] == 'u')
 			dirs->ndigits = ft_nbrlen((unsigned int)arg);
-		//printf("Ndigits are : %d \n", dirs->ndigits);
 	}
 	if (ft_strchr("cspuidxX%", str[dirs->offset]))
 		dirs->type = str[dirs->offset];
@@ -171,7 +165,6 @@ t_directives	ft_parse_dirs(const char *str, va_list args, t_directives *dirs)
 		dirs->arglen = MAX(dirs->precision, dirs->arglen);
 	else if (dirs->type == 's' && dirs->precision > -1 && (char *)arg != 0)
 		dirs->arglen = MIN(dirs->precision, dirs->arglen);
-	//printf("Arglen are : %d \n", dirs->arglen);
 	va_end(argcpy);
 	return (*dirs);
 }

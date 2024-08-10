@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/09 19:03:16 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/10 08:53:08 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,11 @@ static int	ft_eval_pcdr(char *pcdr, va_list *arg, size_t *strlen, t_directives d
 	pcdr_code = ft_parse_type(pcdr, &offset);
 	if (pcdr_code != '%')
 		dirs.outlen += ft_print_directives(argval, dirs);
-	//printf("Outlen is %d \n Arglen is %d\n", dirs.outlen, dirs.arglen);
 	if (!(dirs.precision == 0 && argval == 0 && ft_strchr("diuxX", dirs.type)))
 		dirs.outlen += ft_print_type_router(pcdr_code, *arg, dirs.arglen, dirs.putnull);
-	//printf("Outlen is %d \n Arglen is %d\n", dirs.outlen, dirs.arglen);
-	//dirs.outlen += dirs.arglen;
 	dirs.put_tail = 1;
 	if (pcdr_code != '%')
 		dirs.outlen = ft_print_directives(argval, dirs);
-	//printf("Outlen is %d \n Arglen is %d\n", dirs.outlen, dirs.arglen);
 	*strlen += dirs.outlen;
 	return (offset);
 }
