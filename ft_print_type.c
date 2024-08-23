@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/10 09:43:21 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/22 16:22:21 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,25 @@ static int	print_hex(unsigned int n, char *base)
 	return (ft_putnbr_base_fd(n, base, 1));
 }
 
-int	ft_print_type_router(int type, va_list arg, size_t cap, int putnull)
+int	ft_print_type_router(va_list *arg, t_directives dirs)
 {
-	if (type == '%')
+	if (dirs.type == '%')
 		return (write(1, &"%", 1));
-	else if (type == 'd' || type == 'i' || type == 'u')
-		return (print_nbr(va_arg(arg, long long), type));
-	else if (type == 'c')
+	else if (dirs.type == 'd' || dirs.type == 'i' || dirs.type == 'u')
+		return (print_nbr(va_arg(*arg, long long), dirs.type));
+	else if (dirs.type == 'c')
 	{
-		ft_putchar_fd(va_arg(arg, int), 1);
+		ft_putchar_fd(va_arg(*arg, int), 1);
 		return (1);
 	}
-	else if (type == 's')
-		return (print_str(va_arg(arg, char *), cap, putnull));
-	else if (type == 'p')
-		return (print_ptr(va_arg(arg, unsigned long), "0123456789abcdef"));
-	else if (type == 'x')
-		return (print_hex(va_arg(arg, unsigned int), "0123456789abcdef"));
-	else if (type == 'X')
-		return (print_hex(va_arg(arg, unsigned int), "0123456789ABCDEF"));
+	else if (dirs.type == 's')
+		return (print_str(va_arg(*arg, char *), dirs.arglen, dirs.putnull));
+	else if (dirs.type == 'p')
+		return (print_ptr(va_arg(*arg, unsigned long), "0123456789abcdef"));
+	else if (dirs.type == 'x')
+		return (print_hex(va_arg(*arg, unsigned int), "0123456789abcdef"));
+	else if (dirs.type == 'X')
+		return (print_hex(va_arg(*arg, unsigned int), "0123456789ABCDEF"));
 	else
 		return (0);
 }

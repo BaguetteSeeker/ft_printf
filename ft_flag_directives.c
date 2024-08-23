@@ -6,165 +6,111 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/10 09:48:58 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/23 15:43:54 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_directives	ft_init_directives(t_directives dirs)
+static size_t	ft_parse_flags(const char *str, t_directives *dirs)
 {
-	dirs.type = 0;
-	dirs.width = 0;
-	dirs.left = 0;
-	dirs.zero = 0;
-	dirs.star = 0;
-	dirs.precision = -1;
-	dirs.hash = 0;
-	dirs.space = 0;
-	dirs.plus = 0;
-	dirs.offset = 0;
-	dirs.outlen = 0;
-	dirs.siglen = 0;
-	dirs.arglen = 0;
-	dirs.ndigits = 0;
-	dirs.putnull = 0;
-	dirs.put_tail = 0;
-	return (dirs);
-}
+	size_t	offset;
 
-static t_directives	ft_parse_flags(const char *str, t_directives dirs)
-{
-	if (*str == '-')
-		dirs.left = '1';
-	else if (*str == '#')
-		dirs.hash = 1;
-	else if (*str == ' ')
-		dirs.space = 1;
-	else if (*str == '+')
-		dirs.plus = 1;
-	else if (*str == '0')
-		dirs.zero = 1;
-	return (dirs);
-}
-
-static size_t	ft_count_signs(long long arg, t_directives dirs)
-{
-	dirs.siglen = 0;
-	if (ft_strchr("diup", dirs.type))
+	offset = 0;
+	while (ft_strchr("-#+ 0", str[offset]))
 	{
-		if (dirs.plus && ((arg >= 0 && dirs.type != 'p') || (arg && dirs.type == 'p')))
-			dirs.siglen++;
-		else if ((int)arg < 0 && dirs.type != 'u' && dirs.type != 'p')
-			dirs.siglen++;
-		else if (dirs.space && (int)arg >= 0)
-			dirs.siglen++;
-		else if (dirs.type == 'p' && (int)arg != 0)
-			dirs.siglen += 2;		
+		if (*str == '-')
+			dirs->left = '1';
+		else if (*str == '#')
+			dirs->hash = 1;
+		else if (*str == ' ')
+			dirs->space = 1;
+		else if (*str == '+')
+			dirs->plus = 1;
+		else if (*str == '0')
+			dirs->zero = 1;
+		offset++;
 	}
-	if ((dirs.hash && ft_strchr("xX", dirs.type) && (unsigned int)arg))
-		dirs.siglen += 2;
-	return (dirs.siglen);
+	return (offset);
 }
 
-static size_t	ft_fetch_arglen(long long arg, int type, int putnull)
+static size_t	ft_fetch_arglen(long long arg, t_directives dirs)
 {
 	size_t	arglen;
 
 	arglen = 0;
-	if (type == 's' && (char *)arg)
+	if (dirs.type == 's' && (char *)arg)
 		arglen = ft_strlen((char *)arg);
-	else if (type == 's' && !(char *)arg && putnull)
+	else if (dirs.type == 's' && !(char *)arg && dirs.putnull)
 		arglen = 6;
-	else if (type == 'p' && !(unsigned long)arg)
+	else if (dirs.type == 'p' && !(unsigned long)arg)
 		arglen = 5;
-	else if (ft_strchr("p", type))
+	else if (ft_strchr("p", dirs.type))
 		arglen = ft_nbrblen((unsigned long)arg, 16);
-	else if (ft_strchr("xX", type))
+	else if (ft_strchr("xX", dirs.type))
 		arglen = ft_nbrblen((unsigned int)arg, 16);
-	else if (type == 'c' || type == '%')
+	else if (dirs.type == 'c' || dirs.type == '%')
 		arglen = 1;
-	else if (type == 'u')
+	else if (dirs.type == 'u')
 		arglen = ft_nbrlen(0xffffffff + (unsigned int)arg + 1);
-	else if (type == 'd' || type == 'i')
+	else if (dirs.type == 'd' || dirs.type == 'i')
 		arglen = ft_nbrdig((int)arg);
 	return (arglen);
 }
 
-size_t	ft_print_directives(long long arg, t_directives dirs)
+static int	eval_arglen(va_list *args, t_directives *dirs)
 {
-	dirs.siglen = ft_count_signs((int)arg, dirs);
-	dirs.outlen += ft_root_padding(' ', dirs);
-	if (!dirs.put_tail)
-	{
-		if (ft_strchr("iudp", dirs.type))
-		{
-			if (dirs.plus && (((int)arg >= 0 && dirs.type != 'p') || ((int)arg && dirs.type == 'p')))
-				dirs.outlen += write(1, &"+", 1);
-			else if ((int)arg < 0 && dirs.type != 'u' && dirs.type != 'p')
-				dirs.outlen += write(1, &"-", 1);
-			else if (dirs.space && (int)arg >= 0)
-				dirs.outlen += write(1, &" ", 1);
-			else if (dirs.type == 'p' && arg)
-				dirs.outlen += write(1, "0x", 2);
-		}
-		else if (dirs.hash && ft_strchr("xX", dirs.type) && (unsigned int)arg)
-			dirs.outlen += ft_printf("0%c", dirs.type);
-		dirs.outlen += ft_root_padding('0', dirs);
-	}
-	return (dirs.outlen);
-}
+	va_list	argcpy;
+	va_list	argccpy;
 
-static int	ft_parse_len(const char *str, int offset, va_list args, int *ldest)
-{
-	int	n;
-
-	n = 0;
-	if (str[offset] == '*')
-	{
-		offset++;
-		n = va_arg(args, int);
-	}
-	else
-		while (ft_isdigit(str[offset]))
-			n = (n * 10) + (str[offset++] - '0');
-	*ldest = n;
-	return (offset);
-}
-
-t_directives	ft_parse_dirs(const char *str, va_list args, t_directives *dirs)
-{
-	va_list		argcpy;
-	long long	arg;
-
-	va_copy(argcpy, args);
-	arg = va_arg(argcpy, long long);
-	while (ft_strchr("-#+ 0", str[dirs->offset]))
-		*dirs = ft_parse_flags(&str[dirs->offset++], *dirs);
-	dirs->offset = ft_parse_len(str, dirs->offset, args, &dirs->width);
-	if (str[dirs->offset] == '.' )
-	{
-		dirs->precision = 0;
-		dirs->offset++;
-		dirs->offset = ft_parse_len(str, dirs->offset, args, &dirs->precision);
-		if (ft_strchr("pxX", str[dirs->offset]))
-			dirs->ndigits = ft_nbrblen((unsigned int)arg, 16);
-		else if (ft_strchr("id", str[dirs->offset]))
-			dirs->ndigits = ft_nbrdig((int)arg);
-		else if (str[dirs->offset] == 'u')
-			dirs->ndigits = ft_nbrlen((unsigned int)arg);
-	}
-	if (ft_strchr("cspuidxX%", str[dirs->offset]))
-		dirs->type = str[dirs->offset];
-	if (dirs->type == 's' && !(char *)arg && (dirs->precision >= 6 || dirs->precision == -1))
-		dirs->putnull = 1;
-	dirs->arglen = ft_fetch_arglen(arg, dirs->type, dirs->putnull);
-	if (ft_strchr("diuxX", dirs->type) && (int)arg == 0 && dirs->precision == 0)
-		dirs->arglen = 0;
-	else if (ft_strchr("diuxXp", dirs->type))
+	va_copy(argcpy, *args);
+	va_copy(argccpy, argcpy);
+	dirs->arglen = ft_fetch_arglen(va_arg(argccpy, long long), *dirs);
+	if (ft_strchr("diuxXp", dirs->type) && dirs->precision != 0)
 		dirs->arglen = ft_maxint(dirs->precision, dirs->arglen);
-	else if (dirs->type == 's' && dirs->precision > -1 && (char *)arg != 0)
-		dirs->arglen = ft_minint(dirs->precision, dirs->arglen);
+	if (dirs->type == 's' && dirs->precision > -1)
+		if (va_arg(argcpy, char *) != 0)
+			dirs->arglen = ft_minint(dirs->precision, dirs->arglen);
+	va_end(argcpy);
+	va_end(argccpy);
+	return (dirs->arglen);
+}
+
+static int	parse_precision(va_list *args, t_directives *dirs, const char *str)
+{
+	va_list	argcpy;
+
+	va_copy(argcpy, *args);
+	dirs->precision = 0;
+	dirs->offset++;
+	dirs->offset += ft_parse_len(&str[dirs->offset], args, &dirs->precision);
+	if (ft_strchr("pxX", str[dirs->offset]))
+		dirs->ndigits = ft_nbrblen(va_arg(argcpy, unsigned int), 16);
+	else if (ft_strchr("id", str[dirs->offset]))
+		dirs->ndigits = ft_nbrdig(va_arg(argcpy, int));
+	else if (str[dirs->offset] == 'u')
+		dirs->ndigits = ft_nbrlen(va_arg(argcpy, unsigned int));
+	va_end(argcpy);
+	return (dirs->offset);
+}
+
+t_directives	ft_parse_dirs(char *str, va_list *args, t_directives *dirs)
+{
+	va_list	argcpy;
+
+	va_copy(argcpy, *args);
+	dirs->offset = ft_parse_flags(str, dirs);
+	dirs->offset += ft_parse_len(&str[dirs->offset], args, &dirs->width);
+	if (str[dirs->offset] == '.' )
+		parse_precision(args, dirs, str);
+	if (ft_strchr("cspuidxX%", str[dirs->offset]))
+		dirs->type = str[dirs->offset++];
+	dirs->putnull = 1;
+	if (!(dirs->type == 's' && !va_arg(argcpy, char *)))
+		dirs->putnull = 0;
+	else if (!(dirs->precision >= 6 || dirs->precision == -1))
+		dirs->putnull = 0;
+	eval_arglen(args, dirs);
 	va_end(argcpy);
 	return (*dirs);
 }
