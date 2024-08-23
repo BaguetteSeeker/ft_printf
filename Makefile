@@ -6,11 +6,11 @@
 #    By: epinaud <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/25 16:30:14 by epinaud           #+#    #+#              #
-#    Updated: 2024/08/23 15:47:58 by epinaud          ###   ########.fr        #
+#    Updated: 2024/08/23 15:49:14 by epinaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFILES = ft_printf.c ft_print_type.c ft_flag_directives.c ft_print_padding.c ft_base_integrity.c ft_check_dup.c
+CFILES = ft_printf.c ft_print_type.c ft_parse_directives.c ft_print_directives.c ft_base_integrity.c ft_check_dup.c
 
 LIBFTDIR = ../libft
 
