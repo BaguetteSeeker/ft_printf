@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_type.c                                    :+:      :+:    :+:   */
+/*   ft_print_argument.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/22 16:22:21 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/25 16:06:46 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	print_hex(unsigned int n, char *base)
 	return (ft_putnbr_base_fd(n, base, 1));
 }
 
-int	ft_print_type_router(va_list *arg, t_directives dirs)
+int	ft_print_arg(va_list *arg, t_directives dirs)
 {
 	if (dirs.type == '%')
 		return (write(1, &"%", 1));

@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/25 12:07:39 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/25 16:10:18 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_directives	ft_init_directives(t_directives dirs)
 	return (dirs);
 }
 
-static int	ft_eval_pcdr(size_t *strlen, va_list *arg, t_directives dirs, ...)
+static int	ft_print_argdirs(size_t *strlen, va_list *arg, t_directives dirs)
 {
 	va_list		argcpy;
 	long long	argval;
@@ -42,7 +42,7 @@ static int	ft_eval_pcdr(size_t *strlen, va_list *arg, t_directives dirs, ...)
 	argval = va_arg(argcpy, long long);
 	dirs.strlen += ft_print_directives(argval, dirs);
 	if (!(dirs.precision == 0 && argval == 0 && ft_strchr("diuxX", dirs.type)))
-		dirs.strlen += ft_print_type_router(arg, dirs);
+		dirs.strlen += ft_print_arg(arg, dirs);
 	dirs.put_tail = 1;
 	dirs.strlen = ft_print_directives(argval, dirs);
 	*strlen += dirs.strlen;
@@ -67,7 +67,7 @@ int	ft_printf(const char *str, ...)
 			str++;
 			dirs = ft_init_directives(dirs);
 			str += ft_parse_dirs((char *)str, &args, &dirs).offset;
-			ft_eval_pcdr(&strlen, &args, dirs);
+			ft_print_argdirs(&strlen, &args, dirs);
 			continue ;
 		}
 		ft_putchar_fd(*str++, 1);

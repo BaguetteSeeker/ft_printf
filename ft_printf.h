@@ -41,7 +41,7 @@ typedef struct s_directives
 
 //Mandatory
 int				ft_printf(const char *str, ...);
-int				ft_print_type_router(va_list *arg, t_directives dirs);
+int				ft_print_arg(va_list *arg, t_directives dirs);
 int				ft_base_integrity(char *base);
 int				ft_check_dup(char *str);
 t_directives	ft_init_directives(t_directives dirs);
