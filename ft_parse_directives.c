@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_flag_directives.c                               :+:      :+:    :+:   */
+/*   ft_parse_directives.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/23 15:43:54 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/24 16:11:11 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ static int	parse_precision(va_list *args, t_directives *dirs, const char *str)
 {
 	va_list	argcpy;
 
-	va_copy(argcpy, *args);
 	dirs->precision = 0;
 	dirs->offset++;
 	dirs->offset += ft_parse_len(&str[dirs->offset], args, &dirs->precision);
+	va_copy(argcpy, *args);
 	if (ft_strchr("pxX", str[dirs->offset]))
 		dirs->ndigits = ft_nbrblen(va_arg(argcpy, unsigned int), 16);
 	else if (ft_strchr("id", str[dirs->offset]))
@@ -98,11 +98,11 @@ t_directives	ft_parse_dirs(char *str, va_list *args, t_directives *dirs)
 {
 	va_list	argcpy;
 
-	va_copy(argcpy, *args);
 	dirs->offset = ft_parse_flags(str, dirs);
 	dirs->offset += ft_parse_len(&str[dirs->offset], args, &dirs->width);
 	if (str[dirs->offset] == '.' )
 		parse_precision(args, dirs, str);
+	va_copy(argcpy, *args);
 	if (ft_strchr("cspuidxX%", str[dirs->offset]))
 		dirs->type = str[dirs->offset++];
 	dirs->putnull = 1;

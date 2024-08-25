@@ -6,27 +6,12 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:42:38 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/23 14:51:23 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/08/25 12:07:39 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*static int	ft_parse_type(char *pcdr, size_t *offset)
-{
-	int	code;
-
-	code = 0;
-	while (pcdr[*offset] && ft_strchr("cspuidxX%", pcdr[*offset]))
-	{
-		code = code * 10 + pcdr[*offset];
-		*offset += 1;
-		if (pcdr[*offset] == '%' )
-			break ;
-		break ;
-	}
-	return (code);
-}*/
 t_directives	ft_init_directives(t_directives dirs)
 {
 	dirs.type = 0;
@@ -48,7 +33,7 @@ t_directives	ft_init_directives(t_directives dirs)
 	return (dirs);
 }
 
-static int	ft_eval_pcdr(size_t *strlen, va_list *arg, t_directives dirs)
+static int	ft_eval_pcdr(size_t *strlen, va_list *arg, t_directives dirs, ...)
 {
 	va_list		argcpy;
 	long long	argval;
