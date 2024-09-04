@@ -6,7 +6,7 @@
 #    By: epinaud <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/25 16:30:14 by epinaud           #+#    #+#              #
-#    Updated: 2024/08/25 16:11:42 by epinaud          ###   ########.fr        #
+#    Updated: 2024/09/04 19:04:07 by epinaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SFILES = ft_printf.c \
 		ft_print_directives.c \
 		ft_base_integrity.c \
 		ft_check_dup.c \
+		ft_min_max.c \
 
 FT_FILES = 	ft_strlen.c \
 			ft_nbrlen.c \
@@ -35,7 +36,7 @@ PRINTF_OBJ = $(SFILES:.c=.o)
 
 LIB_OBJ = $(FT_FILES:.c=.o)
 
-OBJALL = $(SFILES:.c=.o) $(FT_FILES:.c=.o)
+OBJALL = $(addprefix $(OBJ_DIR)/, $(PRINTF_OBJ) $(LIB_OBJ))
 
 CFLAGS = -Wall -Wextra -Werror -ggdb3
 
@@ -45,13 +46,19 @@ LIBFT_NAME = libft.a
 
 all: $(NAME)
 
-$(NAME): $(PRINTF_OBJ) $(LIB_OBJ)
-	ar rcs $(NAME) $(PRINTF_OBJ) $(LIB_OBJ)
+$(OBJ_DIR)/%.o : %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
 
-bonus: $(PRINTF_OBJ) $(LIB_OBJ)
-	ar rcs $(NAME) $(PRINTF_OBJ) $(LIB_OBJ)
+$(NAME): $(OBJALL)
+	mkdir -p $(OBJ_DIR)
+	ar rcs $(NAME) $(OBJALL)
+
+bonus: $(OBJALL)
+	mkdir -p $(OBJ_DIR)
+	ar rcs $(NAME) $(OBJALL)
+	
 clean:
-	rm -f $(PRINTF_OBJ) $(LIB_OBJ)
+	rm -f $(OBJALL)
 
 fclean:  clean
 	rm -f $(NAME) $(LIBFT_NAME)

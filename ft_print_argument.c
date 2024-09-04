@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:48:30 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/25 16:06:46 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/09/04 17:56:12 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ int	ft_print_arg(va_list *arg, t_directives dirs)
 	else if (dirs.type == 'd' || dirs.type == 'i' || dirs.type == 'u')
 		return (print_nbr(va_arg(*arg, long long), dirs.type));
 	else if (dirs.type == 'c')
-	{
-		ft_putchar_fd(va_arg(*arg, int), 1);
-		return (1);
-	}
+		return (ft_putchar_fd(va_arg(*arg, int), 1), 1);
 	else if (dirs.type == 's')
 		return (print_str(va_arg(*arg, char *), dirs.arglen, dirs.putnull));
 	else if (dirs.type == 'p')
