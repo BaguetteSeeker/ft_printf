@@ -6,7 +6,7 @@
 #    By: epinaud <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/25 16:30:14 by epinaud           #+#    #+#              #
-#    Updated: 2024/09/04 19:04:07 by epinaud          ###   ########.fr        #
+#    Updated: 2024/09/05 15:19:40 by epinaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,6 @@ CFLAGS = -Wall -Wextra -Werror -ggdb3
 
 NAME = libftprintf.a
 
-LIBFT_NAME = libft.a
-
 all: $(NAME)
 
 $(OBJ_DIR)/%.o : %.c
@@ -61,7 +59,7 @@ clean:
 	rm -f $(OBJALL)
 
 fclean:  clean
-	rm -f $(NAME) $(LIBFT_NAME)
+	rm -f $(NAME)
 
 re: fclean $(NAME)
 
