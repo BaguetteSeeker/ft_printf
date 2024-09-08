@@ -6,7 +6,7 @@
 #    By: epinaud <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/25 16:30:14 by epinaud           #+#    #+#              #
-#    Updated: 2024/09/05 15:19:40 by epinaud          ###   ########.fr        #
+#    Updated: 2024/09/08 13:46:33 by epinaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,19 +47,20 @@ all: $(NAME)
 $(OBJ_DIR)/%.o : %.c
 	$(CC) -c $(CFLAGS) -o $@ $<
 
-$(NAME): $(OBJALL)
-	mkdir -p $(OBJ_DIR)
+$(NAME): $(OBJ_DIR) $(OBJALL)
 	ar rcs $(NAME) $(OBJALL)
 
-bonus: $(OBJALL)
-	mkdir -p $(OBJ_DIR)
-	ar rcs $(NAME) $(OBJALL)
-	
+bonus: $(NAME)
+
 clean:
 	rm -f $(OBJALL)
 
+.obj:
+	mkdir -p .obj
+ 
 fclean:  clean
 	rm -f $(NAME)
+	rm -rf $(OBJ_DIR)
 
 re: fclean $(NAME)
 
