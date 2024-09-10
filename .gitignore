@@ -5,3 +5,5 @@
 *.gch
 *.json
 main.c
+.vscode
+.obj

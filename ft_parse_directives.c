@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:22:55 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/24 16:11:11 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/09/10 12:52:14 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static size_t	ft_parse_flags(const char *str, t_directives *dirs)
 	offset = 0;
 	while (ft_strchr("-#+ 0", str[offset]))
 	{
-		if (*str == '-')
+		if (str[offset] == '-')
 			dirs->left = '1';
-		else if (*str == '#')
+		else if (str[offset] == '#')
 			dirs->hash = 1;
-		else if (*str == ' ')
+		else if (str[offset] == ' ')
 			dirs->space = 1;
-		else if (*str == '+')
+		else if (str[offset] == '+')
 			dirs->plus = 1;
-		else if (*str == '0')
+		else if (str[offset] == '0')
 			dirs->zero = 1;
 		offset++;
 	}

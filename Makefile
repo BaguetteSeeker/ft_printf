@@ -6,7 +6,7 @@
 #    By: epinaud <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/25 16:30:14 by epinaud           #+#    #+#              #
-#    Updated: 2024/09/08 13:46:33 by epinaud          ###   ########.fr        #
+#    Updated: 2024/09/10 12:37:49 by epinaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ LIB_OBJ = $(FT_FILES:.c=.o)
 
 OBJALL = $(addprefix $(OBJ_DIR)/, $(PRINTF_OBJ) $(LIB_OBJ))
 
-CFLAGS = -Wall -Wextra -Werror -ggdb3
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
@@ -52,12 +52,12 @@ $(NAME): $(OBJ_DIR) $(OBJALL)
 
 bonus: $(NAME)
 
+.obj:
+	mkdir -p .obj
+
 clean:
 	rm -f $(OBJALL)
 
-.obj:
-	mkdir -p .obj
- 
 fclean:  clean
 	rm -f $(NAME)
 	rm -rf $(OBJ_DIR)

@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:38:57 by epinaud           #+#    #+#             */
-/*   Updated: 2024/08/24 15:28:44 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/09/10 12:53:29 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ size_t	ft_print_directives(long long arg, t_directives dirs)
 	{
 		if (ft_strchr("iudp", dirs.type))
 		{
-			if (dirs.plus && ((int)arg >= 0 && dirs.type != 'p'))
+			if (dirs.plus && (arg >= 0 && dirs.type != 'p'))
 				dirs.strlen += write(1, &"+", 1);
-			else if (dirs.plus && ((int)arg && dirs.type == 'p'))
+			else if (dirs.plus && (arg && dirs.type == 'p'))
 				dirs.strlen += write(1, &"+", 1);
 			else if ((int)arg < 0 && dirs.type != 'u' && dirs.type != 'p')
 				dirs.strlen += write(1, &"-", 1);
