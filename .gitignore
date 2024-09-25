@@ -1,8 +1,11 @@
+ft_libft/
 *.o
 *.a
-*.sus
 *.out
 *.gch
+*.swo
+*.swp
+*.swn
 *.json
 main.c
 .vscode

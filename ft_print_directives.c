@@ -6,7 +6,7 @@
 /*   By: epinaud <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:38:57 by epinaud           #+#    #+#             */
-/*   Updated: 2024/09/10 12:53:29 by epinaud          ###   ########.fr       */
+/*   Updated: 2024/09/23 12:29:22 by epinaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ static int	ft_print_padding(int amount, char chr)
 	int	i;
 
 	i = 0;
-	if (chr == '\b')
-	{
-		while (i < amount)
-		{
-			ft_putstr_fd("\b \b", 1);
-			i++;
-		}
-	}
 	if (ft_strchr(" 0", chr))
 		while (i < amount)
 			i += write(1, &chr, 1);

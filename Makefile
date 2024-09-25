@@ -6,19 +6,16 @@
 #    By: epinaud <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/25 16:30:14 by epinaud           #+#    #+#              #
-#    Updated: 2024/09/10 12:37:49 by epinaud          ###   ########.fr        #
+#    Updated: 2024/09/24 19:28:45 by epinaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SFILES = ft_printf.c \
+PRINTF_FILES = ft_printf.c \
 		ft_print_argument.c \
 		ft_parse_directives.c \
 		ft_print_directives.c \
-		ft_base_integrity.c \
-		ft_check_dup.c \
-		ft_min_max.c \
 
-FT_FILES = 	ft_strlen.c \
+LIB_FILES = ft_strlen.c \
 			ft_nbrlen.c \
 			ft_nbrblen.c \
 			ft_count_digits.c \
@@ -29,18 +26,21 @@ FT_FILES = 	ft_strlen.c \
 			ft_putstr_fd.c \
 			ft_putnbr_fd.c \
 			ft_putnbr_base_fd.c \
+			ft_base_integrity.c \
+			ft_check_dup.c \
+			ft_min_max.c \
 
 OBJ_DIR = .obj
 
-PRINTF_OBJ = $(SFILES:.c=.o)
+PRINTF_OBJ = $(PRINTF_FILES:.c=.o)
 
-LIB_OBJ = $(FT_FILES:.c=.o)
+LIB_OBJ = $(LIB_FILES:.c=.o)
 
 OBJALL = $(addprefix $(OBJ_DIR)/, $(PRINTF_OBJ) $(LIB_OBJ))
 
 CFLAGS = -Wall -Wextra -Werror
 
-NAME = libftprintf.a
+NAME = printf.a
 
 all: $(NAME)
 
@@ -53,14 +53,14 @@ $(NAME): $(OBJ_DIR) $(OBJALL)
 bonus: $(NAME)
 
 .obj:
-	mkdir -p .obj
+	@mkdir -p .obj
 
 clean:
-	rm -f $(OBJALL)
+	@rm -f $(OBJALL)
 
 fclean:  clean
-	rm -f $(NAME)
-	rm -rf $(OBJ_DIR)
+	@rm -f $(NAME)
+	@rm -rf $(OBJ_DIR)
 
 re: fclean $(NAME)
 

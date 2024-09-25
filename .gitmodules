@@ -1,0 +1,3 @@
+[submodule "ft_libft"]
+	path = ft_libft
+	url = https://github.com/BaguetteSeeker/ft_libft.git
